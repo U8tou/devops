@@ -17,8 +17,8 @@
 2.  直接运行
     - window双击 shh-windows-amd64.exe，linux 执行
     - linux 直接执行 shh-linux-amd64
-3.  出现运行成功控制台，浏览器访问 http://localhost:2999
-4.  自行配置配置文件 setting.yaml，启动在其他端口（ubuntu限制3000以下端口，可以调整成3000以上的端口，如3001）。
+3.  出现运行成功控制台，浏览器访问 http://localhost:3001
+4.  自行配置配置文件 setting.yaml. 若首次启动，则需要注册账户，首个注册的账户默认为 超级管理员，直接具备系统所有权限
 
 #### 使用说明
 
