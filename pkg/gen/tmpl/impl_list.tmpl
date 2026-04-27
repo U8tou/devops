@@ -1,0 +1,42 @@
+package {{toAllLower .StructName}}
+
+import (
+	"context"
+	"system/model"
+)
+
+// List 分页
+func (m *{{.StructName}}Impl) List(ctx context.Context, args *model.{{.StructName}}Dto) (int64, []model.{{.StructName}}Vo, error) {
+	// 构建筛选条件
+	query := m.engine.Context(ctx).Table(&model.{{.StructName}}{}).Where("1 = 1")
+{{- range $index := .StructRows}}
+{{- if and (.Query) (ne .Name "CreateTime") (ne .Name "UpdateTime") (ne .Name "DeleteTime")}}
+{{- if .LikeQuery}}
+	if args.{{.Name}} != "" {
+		query.And("{{toUnderline .Name}} LIKE ?", "%"+args.{{.Name}}+"%")
+	}
+{{- else}}
+{{- if eq .Typ "string"}}
+	if args.{{.Name}} != "" {
+		query.And("{{toUnderline .Name}} = ?", args.{{.Name}})
+	}
+{{- else}}
+	if args.{{.Name}} != 0 {
+		query.And("{{toUnderline .Name}} = ?", args.{{.Name}})
+	}
+{{- end}}
+{{- end}}
+{{- end}}
+{{- end}}
+	
+	// 查询
+	var total int64
+	var err error
+	rows := make([]model.{{.StructName}}Vo, 0)
+	if args.Size > 0 {
+		total, err = query.Limit(args.Size, (args.Current-1)*args.Size).Asc("id").FindAndCount(&rows)
+	} else {
+		err = query.Asc("id").Find(&rows)
+	}
+	return total, rows, err
+}

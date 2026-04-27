@@ -1,0 +1,21 @@
+package app
+
+import (
+	{{toAllLower .StructName}} "admin/internal/{{.ModulePath}}"
+	m "pkg/middleware"
+	"time"
+
+	"github.com/gofiber/fiber/v2"
+	t "github.com/gofiber/fiber/v2/middleware/timeout"
+)
+
+func registerRoute(r fiber.Router) {
+	r.Route("/{{.ModulePath}}", func(api fiber.Router) {
+		api.Get("/list", m.Auth("{{toColon .StructName}}:list"), m.Oper(), t.NewWithContext({{toAllLower .StructName}}.List, 2*time.Second))
+		api.Get("/get", m.Auth("{{toColon .StructName}}:get"), m.Oper(), t.NewWithContext({{toAllLower .StructName}}.Get, 2*time.Second))
+		api.Delete("/del", m.Auth("{{toColon .StructName}}:del"), m.Oper(), t.NewWithContext({{toAllLower .StructName}}.Del, 2*time.Second))
+		api.Post("/add", m.Auth("{{toColon .StructName}}:add"), m.Oper(), t.NewWithContext({{toAllLower .StructName}}.Add, 2*time.Second))
+		api.Put("/edit", m.Auth("{{toColon .StructName}}:edit"), m.Oper(), t.NewWithContext({{toAllLower .StructName}}.Edit, 2*time.Second))
+		api.Get("/all", m.Auth("{{toColon .StructName}}:get"), m.Oper(), t.NewWithContext({{toAllLower .StructName}}.All, 2*time.Second))
+	})
+}

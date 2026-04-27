@@ -1,0 +1,13 @@
+package {{toAllLower .StructName}}
+
+import (
+	"context"
+	"system/model"
+)
+
+// Get 查
+func (m *{{.StructName}}Impl) Get(ctx context.Context, id string) (*model.{{.StructName}}Vo, error) {
+	var v model.{{.StructName}}Vo
+	_, err := m.engine.Context(ctx).Table(&model.{{.StructName}}{}).ID(id).Get(&v)
+	return &v, err
+}

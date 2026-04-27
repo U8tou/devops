@@ -1,0 +1,29 @@
+package model
+
+/**
+Notes: {{.StructDoc}} MODEL
+Time:  {{.TimeStr}}
+*/
+
+// {{.StructName}} {{.StructDoc}}
+type {{.StructName}} struct {
+{{- range $index := .StructRows}}
+    {{.Name}} {{.Typ}} {{.XormTag}}
+{{- end}}
+}
+
+func (m *{{.StructName}}) Comment() string {
+	return "{{.StructDoc}}"
+}
+
+// {{.StructName}}Vo 出参
+type {{.StructName}}Vo struct {
+	{{.StructName}} `xorm:"extends"`
+}
+
+// {{.StructName}}Dto 入参
+type {{.StructName}}Dto struct {
+	{{.StructName}}
+	Current int `json:"current"`
+	Size    int `json:"size"`
+}

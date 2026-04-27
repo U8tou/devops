@@ -1,0 +1,177 @@
+<template>
+  <ElDialog
+    v-model="visible"
+    :title="dialogType === 'add' ? '新增{{.StructDoc}}' : `编辑{{.StructDoc}}(ID:${form.id})`"
+    width="640px"
+    align-center
+    @close="handleClose"
+  >
+    <ElForm ref="formRef" :model="form" :rules="rules" label-position="top">
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "Id") (ne $r.Name "CreateTime") (ne $r.Name "CreateBy") (ne $r.Name "UpdateTime") (ne $r.Name "UpdateBy") (ne $r.Name "DeleteTime")}}
+      <ElFormItem label="{{$r.NameDoc}}" prop="{{toLower $r.Name}}">
+{{- if and (eq $r.Name "Status") (isEum $r.Eum)}}
+        <ElRadioGroup v-model="form.{{toLower $r.Name}}">
+          <ElRadio :label="1">正常</ElRadio>
+          <ElRadio :label="2">停用</ElRadio>
+        </ElRadioGroup>
+{{- else if eq $r.Name "Sort"}}
+        <ElInputNumber v-model="form.{{toLower $r.Name}}" :min="0" controls-position="right" style="width: 160px" />
+{{- else}}
+        <ElInput v-model="form.{{toLower $r.Name}}" placeholder="请输入{{$r.NameDoc}}" />
+{{- end}}
+      </ElFormItem>
+{{- end}}
+{{- end}}
+    </ElForm>
+    <template #footer>
+      <ElButton @click="handleClose" :disabled="submitLoading">取消</ElButton>
+      <ElButton type="primary" @click="handleSubmit" :loading="submitLoading">确定</ElButton>
+    </template>
+  </ElDialog>
+</template>
+
+<script setup lang="ts">
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { ElMessage } from 'element-plus'
+  import { fetchGet{{.EntityName}}Info, fetchAdd{{.EntityName}}, fetchEdit{{.EntityName}} } from '@/api/{{.ModulePath}}'
+
+  interface Props {
+    modelValue: boolean
+    dialogType: 'add' | 'edit'
+    currentData?: { id: string }
+  }
+
+  interface Emits {
+    (e: 'update:modelValue', value: boolean): void
+    (e: 'success'): void
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    modelValue: false,
+    dialogType: 'add',
+    currentData: undefined
+  })
+
+  const emit = defineEmits<Emits>()
+
+  const formRef = ref<FormInstance>()
+  const submitLoading = ref(false)
+
+  const visible = computed({
+    get: () => props.modelValue,
+    set: (value) => emit('update:modelValue', value)
+  })
+
+  const rules = reactive<FormRules>({
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "Id") (ne $r.Name "CreateTime") (ne $r.Name "CreateBy") (ne $r.Name "UpdateTime") (ne $r.Name "UpdateBy") (ne $r.Name "DeleteTime")}}
+    {{toLower $r.Name}}: [
+      {{- if $r.Must}}
+      { required: true, message: '请输入{{$r.NameDoc}}', trigger: 'blur' },
+      {{- end}}
+      {{- if and (eq $r.Name "Sort") (eq $r.Typ "int")}}
+      { type: 'number', min: 0, message: '不能为负数', trigger: 'blur' }
+      {{- else if and (eq $r.Typ "string") ($r.Max)}}
+      { min: 2, max: {{$r.Max}}, message: '长度在 2 到 {{$r.Max}} 个字符', trigger: 'blur' }
+      {{- end}}
+    ],
+{{- end}}
+{{- end}}
+  })
+
+  const form = reactive<Api.{{.ModuleNamespace}}.{{.EntityName}}AddReq & { id?: string }>({
+    id: '',
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "Id") (ne $r.Name "CreateTime") (ne $r.Name "CreateBy") (ne $r.Name "UpdateTime") (ne $r.Name "UpdateBy") (ne $r.Name "DeleteTime")}}
+    {{toLower $r.Name}}: {{if eq $r.Name "Status"}}1{{else if eq $r.Name "Sort"}}999{{else}}''{{end}},
+{{- end}}
+{{- end}}
+  })
+
+  const resetForm = (): void => {
+    formRef.value?.resetFields()
+    Object.assign(form, {
+      id: '',
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "Id") (ne $r.Name "CreateTime") (ne $r.Name "CreateBy") (ne $r.Name "UpdateTime") (ne $r.Name "UpdateBy") (ne $r.Name "DeleteTime")}}
+      {{toLower $r.Name}}: {{if eq $r.Name "Status"}}1{{else if eq $r.Name "Sort"}}999{{else}}''{{end}},
+{{- end}}
+{{- end}}
+    })
+  }
+
+  const loadData = async (): Promise<void> => {
+    if (!props.currentData?.id) return
+    try {
+      submitLoading.value = true
+      const detail = await fetchGet{{.EntityName}}Info(props.currentData.id)
+      Object.assign(form, {
+{{- range $r := .StructRows}}
+{{- if (ne $r.Name "DeleteTime")}}
+        {{toLower $r.Name}}: detail.{{toLower $r.Name}} ?? {{if eq $r.Name "Status"}}1{{else if or (eq $r.Name "Sort") (eq $r.Typ "int")}}0{{else}}''{{end}},
+{{- end}}
+{{- end}}
+      })
+    } catch (error) {
+      console.error('获取详情失败:', error)
+      ElMessage.error('获取详情失败')
+    } finally {
+      submitLoading.value = false
+    }
+  }
+
+  watch(
+    () => props.modelValue,
+    async (newVal) => {
+      if (newVal) {
+        if (props.dialogType === 'edit' && props.currentData?.id) {
+          await loadData()
+        } else {
+          resetForm()
+        }
+      }
+    }
+  )
+
+  const handleClose = () => {
+    visible.value = false
+    resetForm()
+  }
+
+  const handleSubmit = async () => {
+    if (!formRef.value) return
+    try {
+      await formRef.value.validate()
+      submitLoading.value = true
+
+      if (props.dialogType === 'add') {
+        const payload: Api.{{.ModuleNamespace}}.{{.EntityName}}AddReq = {
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "Id") (ne $r.Name "CreateTime") (ne $r.Name "CreateBy") (ne $r.Name "UpdateTime") (ne $r.Name "UpdateBy") (ne $r.Name "DeleteTime")}}
+          {{toLower $r.Name}}: form.{{toLower $r.Name}},
+{{- end}}
+{{- end}}
+        }
+        await fetchAdd{{.EntityName}}(payload)
+      } else {
+        const payload: Api.{{.ModuleNamespace}}.{{.EntityName}}EditReq = {
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "CreateTime") (ne $r.Name "CreateBy") (ne $r.Name "UpdateTime") (ne $r.Name "UpdateBy") (ne $r.Name "DeleteTime")}}
+          {{toLower $r.Name}}: form.{{toLower $r.Name}},
+{{- end}}
+{{- end}}
+        }
+        await fetchEdit{{.EntityName}}(payload)
+      }
+
+      ElMessage.success(props.dialogType === 'add' ? '新增成功' : '编辑成功')
+      emit('success')
+      handleClose()
+    } catch (error) {
+      ElMessage.error(error instanceof Error ? error.message : '操作失败')
+    } finally {
+      submitLoading.value = false
+    }
+  }
+</script>

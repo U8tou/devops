@@ -1,0 +1,41 @@
+package {{toAllLower .StructName}}
+
+import (
+	{{toAllLower .StructName}} "system/impl/{{.ModulePath}}"
+	r "pkg/resp"
+	"pkg/tools/datacv"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/gofiber/fiber/v2"
+)
+
+// @Summary		{{.StructDoc}}_删除
+// @Description	删除记录
+// @Tags			{{.StructName}}Api
+// @Security		ApiKeyAuth
+// @Accept			json
+// @Produce		json
+// @Param			ids	body		DelReq						true	"IDs"
+// @Success		200	{object}	resp.MyResp{data=DelResp}	"Success"
+// @Failure		500	{object}	resp.MyResp					"Failure"
+// @Router			/{{.ModulePath}}/del [delete]
+func Del(c *fiber.Ctx) error {
+	// 请求
+	var rq DelReq
+	err := c.BodyParser(&rq)
+	if err != nil {
+		return err
+	}
+	err = validator.Struct(rq)
+	if err != nil {
+		return err
+	}
+	// 处理
+	var i{{.StructName}}Impl = {{toAllLower .StructName}}.Impl()
+	affect, err := i{{.StructName}}Impl.Del(c.Context(), datacv.StrSliceToInt64Slice(rq.Ids))
+	if err != nil {
+		return err
+	}
+	// 响应
+	return r.Resp(c, DelResp{Affect: datacv.IntToStr(affect)})
+}

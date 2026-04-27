@@ -1,0 +1,69 @@
+package {{toAllLower .StructName}}
+
+import (
+	{{toAllLower .StructName}} "system/impl/{{.ModulePath}}"
+	"system/model"
+	r "pkg/resp"
+    "pkg/tools/datacv"
+
+	"pkg/validator"
+	"github.com/gofiber/fiber/v2"
+)
+
+// @Summary		{{.StructDoc}}_分页
+// @Description	分页列表
+// @Tags			{{.StructName}}Api
+// @Security		ApiKeyAuth
+// @Accept			x-www-form-urlencoded
+// @Produce		json
+// @Param			args	query		ListReq						true	"Request Parameters"
+// @Success		200		{object}	resp.MyResp{data=ListResp}	"Success"
+// @Failure		500		{object}	resp.MyResp					"Failure"
+// @Router			/{{.ModulePath}}/list [get]
+func List(c *fiber.Ctx) error {
+	// 请求
+	var rq ListReq
+	if err := c.QueryParser(&rq); err != nil {
+		return err
+	}
+	err := validator.Struct(rq)
+	if err != nil {
+		return err
+	}
+	// 处理
+	var args model.{{.StructName}}Dto
+	args.Current = rq.Current
+	args.Size = rq.Size
+{{- range $index := .StructRows}}
+{{- if and (.Query) (ne .Name "CreateTime") (ne .Name "UpdateTime") (ne .Name "DeleteTime")}}
+{{- if eq .Typ "int64"}}
+    args.{{.Name}} = datacv.StrToInt(rq.{{.Name}})
+{{- else}}
+    args.{{.Name}} = rq.{{.Name}}
+{{- end}}
+{{- end}}
+{{- end}}
+	var i{{.StructName}}Impl = {{toAllLower .StructName}}.Impl()
+	total, rows, err := i{{.StructName}}Impl.List(c.Context(), &args)
+	if err != nil {
+		return err
+	}
+	// 响应
+	var rp ListResp
+	rp.Total = datacv.IntToStr(total)
+	rp.Rows = make([]ListBody, len(rows))
+	for idx, row := range rows {
+		var body ListBody
+	{{- range $index := .StructRows}}
+    {{- if (ne .Name "DeleteTime")}}
+    {{- if eq .Typ "int64"}}
+        body.{{.Name}} = datacv.IntToStr(row.{{.Name}})
+    {{- else}}
+        body.{{.Name}} = row.{{.Name}}
+    {{- end}}
+    {{- end}}
+    {{- end}}
+		rp.Rows[idx] = body
+	}
+	return r.Resp(c, rp)
+}

@@ -1,0 +1,51 @@
+{
+    "configurations": [
+        // 运行开发环境
+        {
+            "name": "Run Dev",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "env": {
+                "CGO_ENABLED": "1"
+            },
+            // 执行目标文件
+            "program": "${workspaceFolder}/admin/cmd",
+            // 设置启动参数 dev、uat、prod
+            "args": [
+                "-c", "setting.yaml"
+            ],
+            // "console": "integratedTerminal"
+        },
+        // 运行测试环境
+        {
+            "name": "Run Uat",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            // 执行目标文件
+            // "program": "${fileDirname}",
+            "program": "${workspaceFolder}/admin/cmd",
+            // 设置启动参数 dev、uat、prod
+            "args": [
+                "-c", "setting-uat.yaml"
+            ],
+            "console": "integratedTerminal"
+        },
+        // 运行生产环境
+        {
+            "name": "Run Prod",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            // 执行目标文件
+            // "program": "${fileDirname}",
+            "program": "${workspaceFolder}/admin/cmd",
+            // 设置启动参数 dev、uat、prod
+            "args": [
+                "-c", "setting-prod.yaml"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

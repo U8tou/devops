@@ -1,0 +1,67 @@
+package {{toAllLower .StructName}}
+
+/**
+Notes: {{.StructDoc}} API
+Time:  {{.TimeStr}}
+*/
+
+type ListReq struct {
+	Current int    `json:"current" default:"1" validate:"required,min=1,max=999999"` // 页码
+	Size    int    `json:"size" default:"20" validate:"required,min=1,max=999999"`   // 页长
+{{- range $index := .StructRows}}
+{{- if and (.Query) (ne .Name "CreateTime") (ne .Name "UpdateTime") (ne .Name "DeleteTime")}}
+    {{.Name}} {{.ToTyp}} {{.QueryTag}} // {{.Doc}}
+{{- end}}
+{{- end}}
+}
+type ListResp struct {
+	Total string     `json:"total"`
+	Rows  []ListBody `json:"rows"`
+}
+type ListBody struct {
+{{- range $index := .StructRows}}
+{{- if (ne .Name "DeleteTime")}}
+    {{.Name}} {{.ToTyp}} {{.JsonTag}} // {{.Doc}}
+{{- end}}
+{{- end}}
+}
+
+type GetReq struct {
+	Id string `json:"id" validate:"required,number"`
+}
+type GetResp struct {
+{{- range $index := .StructRows}}
+{{- if (ne .Name "DeleteTime")}}
+    {{.Name}} {{.ToTyp}} {{.JsonTag}} // {{.Doc}}
+{{- end}}
+{{- end}}
+}
+
+type DelReq struct {
+	Ids []string `json:"ids" validate:"required,dive,number"` // IDs
+}
+type DelResp struct {
+	Affect string `json:"affect"` // 影响条数
+}
+
+type AddReq struct {
+{{- range $index := .StructRows}}
+{{- if and (ne .Name "Id") (ne .Name "CreateTime") (ne .Name "CreateBy") (ne .Name "UpdateTime") (ne .Name "UpdateBy")}}
+    {{.Name}} {{.ToTyp}} {{.JsonTag}} // {{.Doc}}
+{{- end}}
+{{- end}}
+}
+type AddResp struct {
+	Affect string `json:"affect"` // 影响条数
+}
+
+type EditReq struct {
+{{- range $index := .StructRows}}
+{{- if and (ne .Name "CreateTime") (ne .Name "CreateBy") (ne .Name "UpdateTime") (ne .Name "UpdateBy")}}
+    {{.Name}} {{.ToTyp}} {{.JsonTag}} // {{.Doc}}
+{{- end}}
+{{- end}}
+}
+type EditResp struct {
+	Affect string `json:"affect"` // 影响条数
+}

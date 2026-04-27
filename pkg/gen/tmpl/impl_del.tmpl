@@ -1,0 +1,14 @@
+package {{toAllLower .StructName}}
+
+import (
+	"context"
+	"system/model"
+)
+
+// Del 删
+func (m *{{.StructName}}Impl) Del(ctx context.Context, ids []int64) (int64, error) {
+	if len(ids) == 0 {
+		return 0, nil
+	}
+	return m.engine.Context(ctx).In("id", ids).Delete(&model.{{.StructName}}{})
+}

@@ -1,0 +1,771 @@
+{
+  "httpMsg": {
+    "unauthorized": "Unauthorized access, please login again",
+    "forbidden": "Access to this resource is forbidden",
+    "notFound": "The requested resource does not exist",
+    "methodNotAllowed": "Request method not allowed",
+    "requestTimeout": "Request timeout, please try again later",
+    "internalServerError": "Internal server error, please try again later",
+    "badGateway": "Bad gateway error, please try again later",
+    "serviceUnavailable": "Service temporarily unavailable, please try again later",
+    "gatewayTimeout": "Gateway timeout, please try again later",
+    "requestCancelled": "Request cancelled",
+    "networkError": "Network connection error, please check your connection",
+    "requestFailed": "Request failed",
+    "requestConfigError": "Request configuration error",
+    "badRequest": "Invalid request parameters",
+    "fieldRequired": "__FIELD__ is required",
+    "fieldValidationRule": "__FIELD__ validation failed (__RULE__)"
+  },
+  "topBar": {
+    "search": {
+      "title": "Search"
+    },
+    "user": {
+      "userCenter": "User center",
+      "docs": "Document",
+      "github": "Github",
+      "lockScreen": "Lock screen",
+      "logout": "Log out"
+    }
+  },
+  "common": {
+    "tips": "Prompt",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "logOutTips": "Do you want to log out?"
+  },
+  "search": {
+    "placeholder": "Search page",
+    "historyTitle": "Search history",
+    "switchKeydown": "Navigate",
+    "selectKeydown": "Select",
+    "exitKeydown": "Close"
+  },
+  "setting": {
+    "menuType": {
+      "title": "Menu Layout",
+      "list": ["Vertical", "Horizontal", "Mixed", "Dual"]
+    },
+    "theme": {
+      "title": "Theme Style",
+      "list": ["Light", "Dark", "System"]
+    },
+    "menu": {
+      "title": "Menu Style"
+    },
+    "color": {
+      "title": "Theme Color"
+    },
+    "box": {
+      "title": "Box Style",
+      "list": ["Border", "Shadow"]
+    },
+    "container": {
+      "title": "Container Width",
+      "list": ["Full", "Boxed"]
+    },
+    "basics": {
+      "title": "Basic Config",
+      "list": {
+        "multiTab": "Show work tab",
+        "accordion": "Sidebar opens accordion",
+        "collapseSidebar": "Show sidebar button",
+        "reloadPage": "Show reload page button",
+        "fastEnter": "Show fast enter",
+        "breadcrumb": "Show crumb navigation",
+        "language": "Show multilingual selection",
+        "progressBar": "Show top progress bar",
+        "weakMode": "Color Weakness Mode",
+        "watermark": "Global watermark",
+        "menuWidth": "Menu width",
+        "tabStyle": "Tab style",
+        "pageTransition": "Page animation",
+        "borderRadius": "Custom radius"
+      }
+    },
+    "tabStyle": {
+      "default": "Default",
+      "card": "Card",
+      "google": "Chrome"
+    },
+    "transition": {
+      "list": {
+        "none": "None",
+        "fade": "Fade",
+        "slideLeft": "Slide Left",
+        "slideBottom": "Slide Bottom",
+        "slideTop": "Slide Top"
+      }
+    },
+    "actions": {
+      "resetConfig": "Reset Config",
+      "copyConfig": "Copy Config",
+      "copySuccess": "Configuration copied to clipboard, paste it into src/config/setting.ts file",
+      "copyFailed": "Copy failed, please try again",
+      "resetFailed": "Reset failed, please refresh the page and try again"
+    }
+  },
+  "notice": {
+    "title": "Notice",
+    "btnClear": "Clear messages",
+    "btnRead": "All read",
+    "clearConfirm": "There are unread messages, please confirm whether to clear",
+    "bar": ["Notice", "Message"],
+    "text": ["No"],
+    "viewAll": "View all",
+    "messageDetail": "Message Detail",
+    "noticeDetail": "Notice Detail",
+    "messageTime": "Time",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure to delete this message?",
+    "deleteNoticeConfirm": "Are you sure to delete this notice?"
+  },
+  "worktab": {
+    "btn": {
+      "refresh": "Refresh",
+      "fixed": "Fixed",
+      "unfixed": "Unfixed",
+      "closeLeft": "Close left",
+      "closeRight": "Close right",
+      "closeOther": "Close other",
+      "closeAll": "Close all"
+    }
+  },
+  "login": {
+    "leftView": {
+      "title": "A backend system of beauty and efficiency",
+      "subTitle": "A sleek and practical interface for a great user experience"
+    },
+    "title": "Welcome back",
+    "subTitle": "Please enter your account and password to login",
+    "roles": {
+      "super": "Super Admin",
+      "admin": "Admin",
+      "user": "User"
+    },
+    "placeholder": {
+      "username": "Please enter your account",
+      "password": "Please enter your password",
+      "slider": "Please slide to verify"
+    },
+    "sliderText": "Please slide to verify",
+    "sliderSuccessText": "Verification successful",
+    "rememberPwd": "Remember password",
+    "forgetPwd": "Forgot password",
+    "btnText": "Login",
+    "noAccount": "No account yet?",
+    "register": "Register",
+    "success": {
+      "title": "Login successful",
+      "message": "Welcome back"
+    }
+  },
+  "forgetPassword": {
+    "title": "Forgot password?",
+    "subTitle": "Enter your email to reset your password",
+    "placeholder": "Please enter your email",
+    "submitBtnText": "Submit",
+    "backBtnText": "Back"
+  },
+  "register": {
+    "title": "Create account",
+    "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
+    "placeholder": {
+      "username": "Please enter your account",
+      "password": "Please enter your password",
+      "confirmPassword": "Please enter your password again"
+    },
+    "rule": {
+      "confirmPasswordRequired": "Please enter your password again",
+      "passwordMismatch": "The two passwords are inconsistent!",
+      "usernameLength": "The length is 3 to 20 characters",
+      "passwordLength": "The password length cannot be less than 6 digits",
+      "agreementRequired": "Please agree to the privacy policy"
+    },
+    "agreeText": "I agree",
+    "privacyPolicy": "Privacy policy",
+    "submitBtnText": "Register",
+    "hasAccount": "Already have an account?",
+    "toLogin": "To login",
+    "success": "Registration successful, please login",
+    "successNeedBindRole": "Account created. Ask an administrator to assign a role before signing in."
+  },
+  "lockScreen": {
+    "pwdError": "Password error",
+    "lock": {
+      "inputPlaceholder": "Please input lock screen password",
+      "btnText": "Lock"
+    },
+    "unlock": {
+      "inputPlaceholder": "Please input unlock password",
+      "btnText": "Unlock",
+      "backBtnText": "Back to login"
+    }
+  },
+  "greeting": {
+    "dawn": "Good morning!",
+    "morning": "Good morning!",
+    "afternoon": "Good afternoon!",
+    "evening": "Good evening!"
+  },
+  "exceptionPage": {
+    "403": "Sorry, you do not have permission to access this page",
+    "404": "Sorry, the page you are trying to access does not exist",
+    "500": "Sorry, there was an error on the server",
+    "gohome": "Go Home"
+  },
+  "menus": {
+    "login": {
+      "title": "Login"
+    },
+    "register": {
+      "title": "Register"
+    },
+    "forgetPassword": {
+      "title": "Forget Password"
+    },
+    "outside": {
+      "title": "Outside"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "console": "Console"
+    },
+    "result": {
+      "title": "Result Page",
+      "success": "Success",
+      "fail": "Fail"
+    },
+    "exception": {
+      "title": "Exception",
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500"
+    },
+    "system": {
+      "title": "System Settings",
+      "user": "User Manage",
+      "role": "Role Manage",
+      "userCenter": "User Center",
+      "dept": "Dept Manage",
+      "post": "Post Manage",
+      "menu": "Menu Manage"
+    },
+    "devops": {
+      "title": "Project Management",
+      "console": "Console",
+      "automation": "Automation",
+      "automationPlaceholder": "More automation features can be added under this module.",
+      "processList": "Process List",
+      "processEdit": "Process Editor",
+      "projectList": "Project List",
+      "projectMind": "Requirements Mind Map"
+    }
+  },
+  "table": {
+    "form": {
+      "reset": "Reset",
+      "submit": "Submit"
+    },
+    "searchBar": {
+      "reset": "Reset",
+      "search": "Search",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "searchInputPlaceholder": "Please enter",
+      "searchSelectPlaceholder": "Please select"
+    },
+    "selection": "Select",
+    "sizeOptions": {
+      "small": "Compact",
+      "default": "Default",
+      "large": "Loose"
+    },
+    "column": {
+      "selection": "Select",
+      "expand": "Expand",
+      "index": "#"
+    },
+    "zebra": "Zebra",
+    "border": "Border",
+    "headerBackground": "Header BG"
+  },
+  "chat": {
+    "title": "IM Chat",
+    "memberCount": "{count} online",
+    "clearMessages": "Clear messages",
+    "exitWarning": "Exiting the system will clear chat history",
+    "inputPlaceholder": "Type a message",
+    "send": "Send",
+    "clearConfirm": "Are you sure to clear all chat messages?",
+    "online": "Online",
+    "offline": "Offline",
+    "reconnecting": "Reconnecting...",
+    "noMessage": "No messages yet, send one to start",
+    "connecting": "Connecting...",
+    "unknown": "Unknown"
+  },
+  "dev": {
+    "process": {
+      "code": "Code",
+      "remark": "Remark",
+      "detail": "Detail",
+      "edit": "Edit",
+      "add": "Add process",
+      "metaCreateTitle": "New process",
+      "metaEditTitle": "Edit basic info",
+      "editMeta": "Basic info",
+      "editFlow": "Edit flow",
+      "saveFlow": "Save flow",
+      "saveFlowNeedNodeSave": "Some node edits are not applied: click “Save” in the right panel for each modified node, then save the flow.",
+      "backUnsavedConfirm": "You have unsaved node changes. Leave and go back anyway?",
+      "nodeUnsavedHint": "This node has unsaved changes in the side panel",
+      "save": "Save",
+      "back": "Back",
+      "flowPreview": "Flow preview",
+      "detailTitle": "Process detail",
+      "searchCode": "Code",
+      "tagMatchMode": "Match",
+      "tagMatchInclude": "Contains",
+      "tagMatchExclude": "Does not contain",
+      "tagSearch": "Tags",
+      "tags": "Tags",
+      "tagsPlaceholder": "Select tags",
+      "tagsFilterPlaceholder": "Select tags",
+      "tagManage": "Manage tags",
+      "tagManageTitle": "Tag management",
+      "tagNameCol": "Name",
+      "tagAdd": "Add tag",
+      "tagLoadFailed": "Failed to load tags",
+      "tagNameRequired": "Tag name is required",
+      "tagNamePlaceholder": "New tag name",
+      "tagSaveOk": "Saved",
+      "tagDeleteConfirm": "Delete tag \"{name}\"? Links on flows remain as orphaned references (use filter \"Other\" to find them).",
+      "tagDeleteOk": "Deleted",
+      "tagOther": "Other",
+      "tagOrphan": "Removed (id={id})",
+      "tagOrphanHint": "These tags were removed from the dictionary. Saving keeps the links unless you re-add the tag and reassign.",
+      "execType": "Execution type",
+      "execTypeManual": "Manual",
+      "execTypeCron": "Scheduled",
+      "cronEnabled": "Scheduled execution",
+      "cronEnabledHint": "When on, runs on schedule; when off, manual runs only",
+      "cronEnabledUpdateOk": "Scheduled execution setting updated",
+      "cronEnableConfirm": "Scheduled execution will run this flow automatically according to the Cron expression. Enable now?",
+      "cronExpr": "Cron expression",
+      "cronPlaceholder": "e.g. 0 4 * * * or CRON_TZ=Asia/Shanghai 0 4 * * *",
+      "cronPresetPlaceholder": "Quick presets (optional)",
+      "cronPreset15m": "Every 15 minutes",
+      "cronPresetHourly": "Every hour at :00",
+      "cronPresetDaily": "Daily at 4:00 AM",
+      "cronPresetWeeklyMon": "Monday 9:00",
+      "cronInvalid": "Use a standard 5-field cron (or 6 fields with seconds). Aliases like @daily are not supported.",
+      "cronRequired": "Cron expression is required for scheduled execution",
+      "lastExecTime": "Last run time",
+      "lastExecDuration": "Total duration",
+      "lastExecResult": "Last result",
+      "lastExecLog": "Log",
+      "execStatusSuccess": "Success",
+      "execStatusFailed": "Failed",
+      "execStatusCancelled": "Cancelled",
+      "viewExecLog": "View log",
+      "execLogDialogTitle": "Execution log",
+      "execLogEmpty": "No log",
+      "saveSuccess": "Saved successfully",
+      "flowEnv": {
+        "title": "Process environment",
+        "dialogOpen": "Environment",
+        "hint": "Scoped to this flow only. Merged into local script/git subprocess environments when the flow runs.",
+        "saveSuccess": "Environment saved",
+        "loadFailed": "Failed to load environment"
+      },
+      "loadFailed": "Failed to load",
+      "delete": "Delete",
+      "deleteConfirm": "Delete process \"{code}\"? This is a soft delete: the row stays in the database but will disappear from the list.",
+      "codeRequired": "Please enter the code",
+      "run": "Run",
+      "runConfirm": "The flow will start immediately and cannot be undone. Continue?",
+      "runTitle": "Run: {code}",
+      "runClose": "Close",
+      "runEmptyFlow": "This flow is empty. Configure nodes on the edit page first.",
+      "runFlowCaption": "Execution view",
+      "runConsoleCaption": "Console output",
+      "runStarted": "▶ [{code}] Starting",
+      "runDone": "✓ All steps finished",
+      "runFailed": "Execution stopped with an error",
+      "runCancelled": "Stopped",
+      "runStop": "Terminate",
+      "runRestart": "Restart",
+      "runRestartConfirm": "This will start a new run from the beginning, not resume the current run.",
+      "runSseHint": "Running on the server; logs are streamed via SSE.",
+      "runSseFailed": "SSE connection failed. Check network or the backend service.",
+      "runMissingProcessId": "Process id is missing; cannot run.",
+      "runMockRemoteSshFooter": "✓ Remote script finished",
+      "runMockFallback": "…",
+      "runStatus": {
+        "pending": "Pending",
+        "running": "Running",
+        "success": "Done",
+        "error": "Failed",
+        "skipped": "Skipped"
+      },
+      "runNodeStartAt": "Started {time}",
+      "runNodeDuration": "Duration {duration}",
+      "runNodeTransfer": "Transfer {size}",
+      "runMockLines": {
+        "git_repo": [
+          "$ git fetch origin",
+          "From github.com:example/app",
+          " * branch main -> FETCH_HEAD",
+          "$ git checkout -f main",
+          "Already on 'main'",
+          "Done."
+        ],
+        "execute_script": [
+          "$ npm ci",
+          "added 428 packages in 12s",
+          "$ npm run build",
+          "✓ built in 8.42s",
+          "$ ssh deploy@host 'bash -s' < deploy.sh",
+          "Deploy finished with exit 0.",
+          "$ sudo systemctl restart myapp",
+          "Active: active (running)"
+        ],
+        "upload_servers": [
+          "$ rsync -avz --delete dist/ deploy@host:/opt/releases/current/",
+          "sending incremental file list",
+          "sent 1.2M bytes  received 412 bytes  240.00K bytes/sec",
+          "done."
+        ],
+        "ssh_connection": [
+          "$ ssh -o StrictHostKeyChecking=accept-new -p 22 deploy@192.168.1.10",
+          "Welcome to Ubuntu 22.04 LTS",
+          "Authenticated via private key.",
+          "Connection established."
+        ],
+        "remote_ssh_script": [
+          "$ ssh user@host 'cd /opt && bash -s' <<'EOF'",
+          "  echo remote",
+          "EOF",
+          "✓ Remote script finished"
+        ],
+        "remote_download": [
+          "$ scp -P 22 deploy@192.168.1.10:/var/log/myapp/app.log ./artifacts/logs/app.log",
+          "Transferred 100%."
+        ]
+      }
+    },
+    "project": {
+      "name": "Project name",
+      "status": "Status",
+      "progress": "Progress",
+      "versionChangelog": "Changelog",
+      "viewChangelog": "View",
+      "searchName": "Project name",
+      "tagManageTitle": "Project tags",
+      "statusDraft": "Draft",
+      "statusActive": "In progress",
+      "statusPaused": "Paused",
+      "statusDone": "Done",
+      "add": "Add project",
+      "createProject": "Create Project",
+      "editTitle": "Edit project",
+      "addTitle": "New project",
+      "requirements": "Requirements",
+      "delete": "Delete",
+      "deleteConfirm": "Delete project \"{name}\"? This is a soft delete.",
+      "saveSuccess": "Saved",
+      "loadFailed": "Load failed",
+      "nameRequired": "Please enter a project name",
+      "changelogPlaceholder": "Version notes and release log",
+      "mindTitle": "Requirements mind map",
+      "mindSave": "Save map",
+      "mindSaved": "Mind map saved",
+      "mindExportPng": "Export PNG",
+      "mindExportPdf": "Export PDF",
+      "mindNodeProgress": "Node progress",
+      "mindTaskMark": "Node information",
+      "mindSidebarMarkersTab": "Markers",
+      "mindSidebarDescTab": "Description",
+      "mindNodeCanvasLabel": "On canvas",
+      "mindNodeDetailDesc": "Description",
+      "mindNodeDescPlaceholder": "Saved to the sidebar and Node info only; not shown on the mind map canvas.",
+      "mindNodeDescEmpty": "No description",
+      "mindTaskMarkHint": "Markers appear to the left of the node text. Multiple markers allowed; priority/task/tag are exclusive within their group. Tap again to remove.",
+      "mindTaskClear": "Clear",
+      "mindMarkerTag": "Tags",
+      "mindMarkerPriority": "Priority",
+      "mindMarkerTask": "Task",
+      "mindMarkerExpression": "Emoji",
+      "mindMarkerSignA": "Markers (star / flag …)",
+      "mindMarkerSignB": "Markers (arrows / symbols)",
+      "mindMarkerSignC": "Markers (people / other)",
+      "mindTaskNone": "None",
+      "mindTaskNotStarted": "Started",
+      "mindTaskDone": "Completed",
+      "mindNoSelection": "Select a node",
+      "mindLoadFailed": "Failed to load mind map",
+      "mindDefaultRoot": "Root"
+    },
+    "workflow": {
+      "paletteTitle": "Nodes",
+      "nodeSettings": "Parameters",
+      "flowEnableLabel": "Flow on",
+      "nodeSettingsEmpty": "Click a node on the canvas to edit its parameters (similar to n8n).",
+      "nodeSettingsEnvUsage": "Set flow-wide variables via Environment in the header; they are merged into each step’s subprocess. Reference them in scripts or commands: Bash/sh use $NAME or ${NAME}; CMD use %NAME%; PowerShell use $env:NAME. Names are case-sensitive and must match what you configured.",
+      "fieldLabel": "Display name",
+      "saveNode": "Save",
+      "validateConnection": "Test connection",
+      "validateConnectionOk": "Validation passed",
+      "validateConnectionFail": "Validation failed",
+      "nodeSaveSuccess": "Node parameters saved. Click Save at the top to persist to the server.",
+      "gitCheckoutDuplicate": "Multiple “Pull GIT repository” nodes use the same checkout folder “{path}”. Change them before saving to avoid overwriting each other.",
+      "gitCheckoutPathWorkspaceRoot": "workspace root",
+      "insertStandardPipeline": "Insert standard pipeline",
+      "insertStandardPipelineConfirm": "This will replace all nodes and edges on the canvas. Continue?",
+      "standardPipeline": {
+        "pullCode": "Pull code",
+        "packageBuild": "Package & build",
+        "uploadDeploy": "Upload & deploy",
+        "startService": "Start service"
+      },
+      "toolbar": {
+        "resetView": "Reset view",
+        "resetFlow": "Reload flow",
+        "undo": "Undo",
+        "clear": "Clear",
+        "confirmResetFlow": "Replace the canvas with the last saved flow from the server? Unsaved changes will be lost.",
+        "confirmClear": "Remove all nodes and edges on the canvas?",
+        "resetFlowDone": "Flow reloaded from server",
+        "clearDone": "Canvas cleared"
+      },
+      "summary": {
+        "hosts": "host(s)"
+      },
+      "params": {
+        "repoUrl": "Repository URL",
+        "branch": "Branch",
+        "checkoutSubdir": "Checkout folder",
+        "checkoutSubdirHint": "Path relative to the workspace root; the repo is checked out into this subfolder. Leave empty to check out directly to the workspace root.",
+        "shallowClone": "Shallow clone (--depth 1)",
+        "gitCredsHint": "Private repos need credentials: HTTPS uses username + password or token; SSH URLs (git@ / ssh://) use a PEM private key. Credentials are stored only in the flow JSON.",
+        "gitAuthType": "Repository credentials",
+        "gitAuthNone": "None (public repository)",
+        "gitAuthHttp": "HTTPS username and password/token",
+        "gitAuthSshKey": "SSH private key (PEM)",
+        "gitHttpUsername": "HTTPS username",
+        "gitHttpPassword": "HTTPS password or token",
+        "gitSshPrivateKey": "SSH private key (PEM)",
+        "executeScriptCwd": "Working directory (relative to repo or workspace)",
+        "executeScriptBody": "Script content",
+        "hosts": "Target hosts (one per line, e.g. user@host:22)",
+        "uploadHost": "Target host (single, e.g. user@host:22)",
+        "remotePath": "Remote directory",
+        "artifactGlob": "Artifact glob (relative to build output)",
+        "remoteSourcePath": "Remote path (file or directory on server)",
+        "outputPath": "Save path (relative to workspace)",
+        "extractArchive": "Extract after download",
+        "sshHost": "Host",
+        "sshHostPort": "Host and port",
+        "sshPort": "Port",
+        "sshUsername": "Username",
+        "sshAuthType": "Authentication",
+        "sshAuthPassword": "Password",
+        "sshAuthKey": "Private key (PEM)",
+        "sshPassword": "Password",
+        "sshPrivateKey": "Private key content",
+        "remoteSshCwd": "Remote working directory",
+        "remoteSshScript": "Remote shell script"
+      },
+      "dragHint": "Drag a node onto the canvas to add a step. Select a node or edge and press Delete or Backspace to remove. Select an edge and drag its endpoints to reconnect.",
+      "openScriptEditor": "Edit in dialog",
+      "gitRepo": "Git pull / clone",
+      "sshConnection": "SSH connection",
+      "remoteSshScript": "Remote script",
+      "remoteScriptSshHint": "SSH comes from an upstream “SSH connection” or “Upload deploy” node (upload host is parsed as user@host:port). This node only sets remote directory and script.",
+      "remoteScriptResolvedSsh": "Effective connection: {target}",
+      "remoteScriptMultiRunHint": "The same script will run on each host above in order ({count} host(s)).",
+      "remoteScriptMultiTargets": "Runs on {n} host(s)",
+      "remoteScriptUpstream": "Upstream",
+      "remoteScriptUpstreamShort": "No upstream",
+      "remoteScriptNoUpstream": "No upstream SSH: connect an “SSH connection” or “Upload deploy” node on the incoming side",
+      "remoteDownloadSshHint": "Pull logs, backups, or artifacts from the server via SCP/SFTP into the workspace. SSH comes from an upstream “SSH connection” or “Upload deploy” node.",
+      "remoteDownloadResolvedSsh": "Effective connection: {target}",
+      "remoteDownloadNoUpstream": "No upstream SSH: connect an “SSH connection” or “Upload deploy” node on the incoming side",
+      "uploadDeploySshHint": "SSH target matches “SSH connection”: host, port, username, and auth. Set remote directory and artifact glob below.",
+      "executeScript": "Run script",
+      "uploadServers": "Upload deploy",
+      "remoteDownload": "Remote download",
+      "hints": {
+        "git_repo": "Clone or pull a repository branch",
+        "ssh_connection": "Configure SSH host and credentials for later steps",
+        "remote_ssh_script": "Run a script on remote host(s); with multiple upstreams, runs on each in order; SSH only from upstream SSH connection or upload deploy",
+        "execute_script": "Run shell in a working directory (build, deploy, start, etc.)",
+        "upload_servers": "Configure SSH (same as SSH connection) and sync artifacts to a remote directory",
+        "remote_download": "Download files from a server over SSH into the workspace (logs, backups, etc.; optional extract)"
+      }
+    },
+    "env": {
+      "title": "Environment variables",
+      "key": "Key",
+      "value": "Value",
+      "addRow": "Add row",
+      "removeRow": "Remove",
+      "save": "Save",
+      "saveSuccess": "Saved",
+      "loadFailed": "Failed to load",
+      "hint": "Key-value pairs are stored as a single JSON object; keys must not be empty.",
+      "keyRequired": "A value is set but the key is empty"
+    }
+  },
+  "sys": {
+    "common": {
+      "statusNormal": "Normal",
+      "statusDisabled": "Disabled",
+      "sexMale": "Male",
+      "sexFemale": "Female",
+      "sexUnknown": "Unknown",
+      "dept": "Department",
+      "add": "Add",
+      "export": "Export",
+      "import": "Import",
+      "downloadTemplate": "Download template",
+      "deleteSuccess": "Deleted successfully",
+      "deleteFailed": "Delete failed",
+      "operateFailed": "Operation failed",
+      "getDetailFailed": "Failed to get details",
+      "editSuccess": "Updated successfully",
+      "addSuccess": "Added successfully",
+      "formValidateFailed": "Validation failed, please check your input",
+      "deleteConfirm": "Are you sure to delete? This cannot be undone",
+      "rowNo": "Row",
+      "failReason": "Reason",
+      "viewMore": "View more"
+    },
+    "user": {
+      "title": "User detail",
+      "titleWithId": "User detail (ID:{id})",
+      "addUser": "Add user",
+      "resetPwd": "Reset password",
+      "resetPwdTitle": "Set new password for 「{name}」:",
+      "resetPwdPlaceholder": "Please enter 6-100 character password",
+      "userNotExist": "User not found, cannot reset password",
+      "pleaseInputNewPwd": "Please enter new password",
+      "pwdLengthRule": "Password must be 6-100 characters",
+      "resetPwdSuccess": "Password reset successfully",
+      "resetPwdFailed": "Reset password failed",
+      "userIdNotExist": "User ID does not exist",
+      "importTitle": "Import users",
+      "importDragTip": "Drag file here or <em>click to upload</em>",
+      "importUpdateExist": "Update existing user data",
+      "importFormatTip": "Only xls, xlsx files are allowed.",
+      "importFailDetail": "Import failures",
+      "exportSuccess": "Export successful",
+      "exportFailed": "Export failed",
+      "templateSuccess": "Template downloaded",
+      "templateFailed": "Template download failed",
+      "downloadFailed": "Download failed",
+      "importSuccessCount": "Successfully imported {count} record(s)",
+      "importNoSuccess": "No data imported, check failure details",
+      "importFailed": "Import failed",
+      "pleaseSelectExcel": "Please select .xlsx or .xls file",
+      "pleaseSelectFile": "Please select a file to import",
+      "bindRole": "Assign role",
+      "bindDept": "Assign dept",
+      "bindPost": "Assign post",
+      "deleteUser": "Delete user",
+      "deleteUserConfirm": "Delete user 「{name}」? This cannot be undone",
+      "userListExcel": "user_list.xlsx",
+      "userTemplateExcel": "user_import_template.xlsx",
+      "username": "Username",
+      "usernamePlaceholder": "Please enter username",
+      "usernameRule": "Length 2-50 characters",
+      "nickname": "Nickname",
+      "nicknamePlaceholder": "Please enter nickname",
+      "phone": "Phone",
+      "phonePlaceholder": "Please enter phone",
+      "phoneFormatRule": "Please enter a valid phone number",
+      "email": "Email",
+      "emailPlaceholder": "Please enter email",
+      "password": "Password",
+      "passwordPlaceholder": "Please enter password (6-100 chars)",
+      "sex": "Gender",
+      "address": "Address",
+      "addressPlaceholder": "Please enter address",
+      "remark": "Remark",
+      "remarkPlaceholder": "Please enter remark",
+      "status": "Status",
+      "index": "#",
+      "userInfo": "User info",
+      "contact": "Contact",
+      "dept": "Department",
+      "role": "Role",
+      "post": "Post",
+      "timeInfo": "Time",
+      "action": "Action",
+      "statusPlaceholder": "Select status",
+      "dateRangePlaceholder": "Select date range",
+      "rangeSeparator": " to ",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "today": "Today",
+      "lastWeek": "Last week",
+      "lastMonth": "Last month",
+      "createDate": "Create date"
+    },
+    "dept": {
+      "addDept": "Add department",
+      "topDept": "Top level",
+      "parentDept": "Parent department",
+      "parentDeptPlaceholder": "Select parent department",
+      "deptName": "Department name",
+      "deptNamePlaceholder": "Please enter department name",
+      "deptNameRule": "Please enter department name",
+      "profile": "Description",
+      "profilePlaceholder": "Please enter description",
+      "leader": "Leader",
+      "leaderPlaceholder": "Please enter leader",
+      "leaderPhone": "Phone",
+      "leaderPhonePlaceholder": "Please enter phone",
+      "leaderPhoneRule": "Please enter valid phone number",
+      "leaderEmail": "Email",
+      "leaderEmailPlaceholder": "Please enter email",
+      "sort": "Sort",
+      "sortPlaceholder": "Please enter sort order",
+      "editDept": "Edit department (ID:{id})",
+      "addDeptTitle": "Add department",
+      "deptIdNotExist": "Department ID does not exist",
+      "deleteDeptConfirm": "Delete department 「{name}」? This cannot be undone",
+      "parentPlaceholderTop": "Leave empty or select top for root",
+      "sortNegativeRule": "Sort cannot be negative",
+      "getDetailFailed": "Failed to get department details"
+    },
+    "post": {
+      "addPost": "Add post",
+      "editPost": "Edit post (ID:{id})",
+      "postName": "Post name",
+      "postNamePlaceholder": "Please enter post name",
+      "postNameRule": "Please enter post name",
+      "sortPlaceholder": "Please enter sort order",
+      "sortNegativeRule": "Sort order cannot be negative",
+      "getDetailFailed": "Failed to get post details"
+    },
+    "role": {
+      "addRole": "Add role",
+      "editRole": "Edit role (ID:{id})",
+      "roleName": "Role name",
+      "roleNamePlaceholder": "Please enter role name",
+      "roleKey": "Role key",
+      "roleKeyPlaceholder": "Please enter role key",
+      "roleStatus": "Role status",
+      "menuPerm": "Menu permission",
+      "dataPerm": "Data permission",
+      "deleteRole": "Delete role",
+      "deleteRoleConfirm": "Delete this role? This cannot be undone",
+      "sortLabel": "Sort order",
+      "getDetailFailed": "Failed to get role details"
+    }
+  }
+}

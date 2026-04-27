@@ -1,0 +1,18 @@
+package {{toAllLower .StructName}}
+
+import (
+	"context"
+	"system/model"
+
+	"github.com/yitter/idgenerator-go/idgen"
+)
+
+// Add 增
+func (m *{{.StructName}}Impl) Add(ctx context.Context, args *model.{{.StructName}}Dto) (int64, error) {
+	v := args.{{.StructName}}
+	v.Id = idgen.NextId()
+{{- if .HasDel}}
+	v.DeleteTime = 0
+{{- end}}
+	return m.engine.Context(ctx).InsertOne(&v)
+}

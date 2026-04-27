@@ -1,0 +1,12 @@
+package {{toAllLower .StructName}}
+
+import (
+	"context"
+	"system/model"
+)
+
+// Edit 改
+func (m *{{.StructName}}Impl) Edit(ctx context.Context, args *model.{{.StructName}}Dto) (int64, error) {
+	v := args.{{.StructName}}
+	return m.engine.Context(ctx).ID(v.Id).Update(&v)
+}

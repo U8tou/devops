@@ -1,0 +1,69 @@
+package {{toAllLower .StructName}}
+
+import (
+	{{toAllLower .StructName}} "system/impl/{{.ModulePath}}"
+	"system/model"
+	"pkg/constx"
+	r "pkg/resp"
+	"time"
+
+	"github.com/go-playground/validator/v10"
+    "pkg/tools/datacv"
+	"github.com/gofiber/fiber/v2"
+)
+
+// @Summary		{{.StructDoc}}_新增
+// @Description	新增记录
+// @Tags			{{.StructName}}Api
+// @Security		ApiKeyAuth
+// @Accept			json
+// @Produce		json
+// @Param			args	body		AddReq						true	"Request Parameters"
+// @Success		200		{object}	resp.MyResp{data=AddReq}	"Success"
+// @Failure		500		{object}	resp.MyResp					"Failure"
+// @Router			/{{.ModulePath}}/add [post]
+func Add(c *fiber.Ctx) error {
+	// 请求
+	var rq AddReq
+	err := c.BodyParser(&rq)
+	if err != nil {
+		return err
+	}
+	err = validator.Struct(rq)
+	if err != nil {
+		return err
+	}
+
+    loginId, err := constx.GetLoginId(c)
+	if err != nil {
+		return err
+	}
+	tp := time.Now().Unix()
+
+	// 处理
+	var args model.{{.StructName}}Dto
+{{- range $index := .StructRows}}
+{{- if ne .Name "Id"}}
+{{- if eq .Name "CreateTime"}}
+    args.{{.Name}} = tp
+{{- else if eq .Name "CreateBy"}}
+    args.{{.Name}} = loginId
+{{- else if eq .Name "UpdateTime"}}
+    args.{{.Name}} = tp
+{{- else if eq .Name "UpdateBy"}}
+    args.{{.Name}} = loginId
+{{- else if eq .Typ "int64"}}
+    args.{{.Name}} = datacv.StrToInt(rq.{{.Name}})
+{{- else}}
+    args.{{.Name}} = rq.{{.Name}}
+{{- end}}
+{{- end}}
+{{- end}}
+	var i{{.StructName}}Impl = {{toAllLower .StructName}}.Impl()
+	affect, err := i{{.StructName}}Impl.Add(c.Context(), &args)
+	if err != nil {
+		return err
+	}
+	// 响应
+	return r.Resp(c, AddResp{Affect: datacv.IntToStr(affect)})
+}

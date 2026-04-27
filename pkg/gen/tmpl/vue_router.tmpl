@@ -1,0 +1,19 @@
+/** {{.StructDoc}}路由片段 - 合并到 router/modules/{{.ViewParent}}.ts 的 children */
+export const {{.EntityKebab}}Route = {
+  path: '{{.EntityKebab}}',
+  name: '{{.EntityName}}',
+  component: '/{{.ViewParent}}/{{.EntityKebab}}',
+  meta: {
+    title: 'menus.{{.ViewParent}}.{{.EntityKebab}}',
+    icon: 'ri:briefcase-2-line',
+    keepAlive: true,
+    menus: ['R_SUPER', '{{toColon .StructName}}'],
+    authList: [
+      { title: '列表', authMark: '{{toColon .StructName}}:list' },
+      { title: '详情', authMark: '{{toColon .StructName}}:get' },
+      { title: '新增', authMark: '{{toColon .StructName}}:add' },
+      { title: '编辑', authMark: '{{toColon .StructName}}:edit' },
+      { title: '删除', authMark: '{{toColon .StructName}}:del' }
+    ]
+  }
+}

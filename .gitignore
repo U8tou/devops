@@ -1,0 +1,15 @@
+**.exe
+__debug_* 
+**/*.db
+**/uploads/**
+**/logs/**
+**/pkg/gen/temp/**
+
+dist/
+backup/
+
+# build.bat 输出（二进制、release 目录、tar.gz）
+output/
+
+# 流程执行时克隆的本地工作区（勿提交）
+admin/cmd/devops_workspace/

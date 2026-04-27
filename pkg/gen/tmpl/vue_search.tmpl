@@ -1,0 +1,70 @@
+<template>
+  <ArtSearchBar
+    ref="searchBarRef"
+    v-model="formData"
+    :items="formItems"
+    :rules="rules"
+    @reset="handleReset"
+    @search="handleSearch"
+  >
+  </ArtSearchBar>
+</template>
+
+<script setup lang="ts">
+  interface Props {
+    modelValue: Record<string, any>
+  }
+
+  interface Emits {
+    (e: 'update:modelValue', value: Record<string, any>): void
+    (e: 'search', params: Record<string, any>): void
+    (e: 'reset'): void
+  }
+
+  const props = defineProps<Props>()
+  const emit = defineEmits<Emits>()
+
+  const searchBarRef = ref()
+
+  const formData = computed({
+    get: () => props.modelValue,
+    set: (val) => emit('update:modelValue', val)
+  })
+
+  const rules = {}
+
+{{- if .HasStatusEum}}
+  const statusOptions = ref([
+    { label: '正常', value: 1 },
+    { label: '停用', value: 2 }
+  ])
+{{- end}}
+
+  const formItems = computed(() => [
+{{- range $r := .StructRows}}
+{{- if and ($r.Query) (ne $r.Name "CreateTime") (ne $r.Name "UpdateTime") (ne $r.Name "DeleteTime")}}
+    {
+      label: '{{$r.NameDoc}}',
+      key: '{{toLower $r.Name}}',
+      type: '{{if and (eq $r.Name "Status") (isEum $r.Eum)}}select{{else}}input{{end}}',
+      placeholder: '请输入{{$r.NameDoc}}',
+      clearable: true
+      {{- if and (eq $r.Name "Status") (isEum $r.Eum)}},
+      props: {
+        placeholder: '请选择{{$r.NameDoc}}',
+        options: statusOptions.value,
+        clearable: true
+      }
+      {{- end}}
+    },
+{{- end}}
+{{- end}}
+  ])
+
+  const handleReset = () => emit('reset')
+
+  const handleSearch = async () => {
+    await searchBarRef.value.validate()
+    emit('search', formData.value)
+  }
+</script>

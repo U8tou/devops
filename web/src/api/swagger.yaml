@@ -1,0 +1,2981 @@
+basePath: /api
+definitions:
+  resp.MyResp:
+    description: 统一响应结构
+    properties:
+      code:
+        description: 状态码
+        type: integer
+      data:
+        description: 数据
+      msg:
+        description: 消息
+        type: string
+      timestamp:
+        description: 时间戳
+        type: string
+    type: object
+  sysauth.ChangePasswordReq:
+    properties:
+      newPassword:
+        description: 新密码
+        example: '654321'
+        maxLength: 20
+        minLength: 5
+        type: string
+      oldPassword:
+        description: 原密码
+        example: '123456'
+        maxLength: 20
+        minLength: 5
+        type: string
+    required:
+      - newPassword
+      - oldPassword
+    type: object
+  sysauth.InfoResp:
+    properties:
+      address:
+        description: 联系地址
+        maxLength: 255
+        type: string
+      avatar:
+        description: 头像
+        maxLength: 100
+        type: string
+      buttons:
+        description: 按钮权限
+        items:
+          type: string
+        type: array
+      createBy:
+        description: 创建者
+        type: string
+      createTime:
+        description: 创建时间
+        type: string
+      depts:
+        description: 关联部门IDs
+        items:
+          type: string
+        type: array
+      email:
+        description: 用户邮箱
+        maxLength: 50
+        type: string
+      menus:
+        description: 菜单权限
+        items:
+          type: string
+        type: array
+      nickName:
+        description: 用户昵称
+        maxLength: 30
+        type: string
+      phone:
+        description: 电话号码
+        maxLength: 20
+        type: string
+      phoneArea:
+        default: '+86'
+        description: 电话区号
+        maxLength: 10
+        type: string
+      posts:
+        description: 关联岗位IDs
+        items:
+          type: string
+        type: array
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      roles:
+        description: 关联角色IDs
+        items:
+          type: string
+        type: array
+      sex:
+        default: 1
+        description: 用户性别:1_男,2_女,3_未知
+        enum:
+          - 1
+          - 2
+          - 3
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        maximum: 1
+        type: integer
+      updateBy:
+        description: 更新者
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户ID
+        type: string
+      userName:
+        description: 用户账号
+        maxLength: 30
+        type: string
+      userType:
+        default: '00'
+        description: 用户类型:00_系统用户
+        enum:
+          - '00'
+        maxLength: 2
+        type: string
+    required:
+      - address
+      - avatar
+      - createBy
+      - createTime
+      - email
+      - nickName
+      - phone
+      - phoneArea
+      - remark
+      - sex
+      - status
+      - updateBy
+      - updateTime
+      - userId
+      - userName
+      - userType
+    type: object
+  sysauth.LoginReq:
+    properties:
+      code:
+        type: string
+      codeId:
+        type: string
+      password:
+        description: 密码
+        example: '123456'
+        maxLength: 20
+        minLength: 5
+        type: string
+      userName:
+        description: 用户名
+        example: admin
+        maxLength: 20
+        minLength: 2
+        type: string
+    required:
+      - password
+      - userName
+    type: object
+  sysauth.LoginResp:
+    properties:
+      refreshToken:
+        type: string
+      token:
+        type: string
+    type: object
+  sysauth.RefreshTokenReq:
+    properties:
+      refreshToken:
+        description: 刷新令牌
+        example: ''
+        type: string
+    required:
+      - refreshToken
+    type: object
+  sysauth.UpdateProfileReq:
+    properties:
+      address:
+        description: 联系地址
+        maxLength: 255
+        type: string
+      email:
+        description: 用户邮箱
+        maxLength: 50
+        type: string
+      nickName:
+        description: 用户昵称
+        maxLength: 30
+        type: string
+      phone:
+        description: 电话号码
+        maxLength: 20
+        type: string
+      phoneArea:
+        description: 电话区号
+        maxLength: 10
+        type: string
+      sex:
+        description: 用户性别:1_男,2_女,3_未知
+        enum:
+          - 1
+          - 2
+          - 3
+        type: integer
+    type: object
+  sysauth.UploadAvatarResp:
+    properties:
+      avatar:
+        description: 头像地址（相对路径或完整 URL）
+        type: string
+    type: object
+  sysdept.AddReq:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      leader:
+        description: 负责人
+        type: string
+      name:
+        description: 部门名称
+        type: string
+      phone:
+        description: 电话
+        type: string
+      pid:
+        description: 上级部门ID
+        type: string
+      profile:
+        description: 部门简介
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        type: integer
+    required:
+      - leader
+      - name
+      - sort
+    type: object
+  sysdept.AddResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysdept.DelResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    required:
+      - affect
+    type: object
+  sysdept.EditReq:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      id:
+        description: ID
+        type: string
+      leader:
+        description: 负责人
+        type: string
+      name:
+        description: 部门名称
+        type: string
+      phone:
+        description: 电话
+        type: string
+      pid:
+        description: 上级部门ID
+        type: string
+      profile:
+        description: 部门简介
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态:1_正常,0_停用
+        enum:
+          - 1
+          - 2
+        type: integer
+    required:
+      - id
+      - leader
+      - name
+      - sort
+    type: object
+  sysdept.EditResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysdept.GetResp:
+    properties:
+      createBy:
+        description: 创建者
+        type: string
+      createTime:
+        description: 创建时间
+        type: string
+      email:
+        description: 负责人邮箱
+        type: string
+      id:
+        description: ID
+        type: string
+      leader:
+        description: 负责人
+        type: string
+      name:
+        description: 部门名称
+        type: string
+      phone:
+        description: 负责人电话
+        type: string
+      pid:
+        description: 上级部门ID
+        type: string
+      profile:
+        description: 部门简介
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        type: integer
+      updateBy:
+        description: 更新者
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+    required:
+      - email
+      - id
+      - leader
+      - name
+      - phone
+      - sort
+    type: object
+  sysdept.ListBody:
+    properties:
+      createTime:
+        description: 创建时间
+        type: string
+      email:
+        description: 负责人邮箱
+        type: string
+      id:
+        description: ID
+        type: string
+      leader:
+        description: 负责人
+        type: string
+      name:
+        description: 部门名称
+        type: string
+      phone:
+        description: 负责人电话
+        type: string
+      pid:
+        description: 上级部门ID
+        type: string
+      profile:
+        description: 部门简介
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: string
+    required:
+      - email
+      - id
+      - leader
+      - name
+      - phone
+      - sort
+    type: object
+  sysdept.ListResp:
+    properties:
+      rows:
+        items:
+          $ref: '#/definitions/sysdept.ListBody'
+        type: array
+      total:
+        type: string
+    type: object
+  sysmenu.GetResp:
+    properties:
+      createBy:
+        description: 创建者
+        type: string
+      createTime:
+        description: 创建时间
+        type: string
+      id:
+        description: ID
+        type: string
+      permis:
+        description: 权限代码
+        type: string
+      pid:
+        description: 父ID
+        type: string
+      remark:
+        description: 备注
+        type: string
+      types:
+        description: 类型:1_菜单,2_权限
+        type: integer
+      updateBy:
+        description: 更新者
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+    type: object
+  sysmenu.ListBody:
+    properties:
+      createTime:
+        description: 创建时间
+        type: string
+      id:
+        description: ID
+        type: string
+      permis:
+        description: 权限代码
+        type: string
+      pid:
+        description: 父ID
+        type: string
+      remark:
+        description: 备注
+        type: string
+      types:
+        description: 类型:1_菜单,2_权限
+        type: integer
+    type: object
+  sysmenu.ListResp:
+    properties:
+      rows:
+        items:
+          $ref: '#/definitions/sysmenu.ListBody'
+        type: array
+      total:
+        type: string
+    type: object
+  syspost.AddReq:
+    properties:
+      name:
+        maxLength: 50
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+          - 1
+          - 2
+        type: integer
+    required:
+      - name
+      - sort
+    type: object
+  syspost.AddResp:
+    properties:
+      affect:
+        type: string
+    type: object
+  syspost.DelReq:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    required:
+      - ids
+    type: object
+  syspost.DelResp:
+    properties:
+      affect:
+        type: string
+    type: object
+  syspost.EditReq:
+    properties:
+      id:
+        type: string
+      name:
+        maxLength: 50
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+          - 1
+          - 2
+        type: integer
+    required:
+      - id
+      - name
+      - sort
+    type: object
+  syspost.EditResp:
+    properties:
+      affect:
+        type: string
+    type: object
+  syspost.GetResp:
+    properties:
+      createBy:
+        type: string
+      createTime:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      updateBy:
+        type: string
+      updateTime:
+        type: string
+    type: object
+  syspost.ListBody:
+    properties:
+      createTime:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      updateTime:
+        type: string
+    type: object
+  syspost.ListResp:
+    properties:
+      rows:
+        items:
+          $ref: '#/definitions/syspost.ListBody'
+        type: array
+      total:
+        type: string
+    type: object
+  sysrole.AddReq:
+    properties:
+      name:
+        description: 名称
+        maxLength: 30
+        type: string
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      role:
+        description: 角色标识
+        maxLength: 30
+        type: string
+      sort:
+        default: 999
+        description: 显示顺序
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        type: integer
+    required:
+      - name
+      - role
+    type: object
+  sysrole.AddResp:
+    properties:
+      id:
+        description: 新增ID
+        type: string
+    type: object
+  sysrole.AssignDeptReq:
+    properties:
+      deptIds:
+        description: 部门ID列表
+        items:
+          type: string
+        type: array
+      deptLinkage:
+        description: 数据父子联动:1_联动,2_不联动
+        type: integer
+      roleId:
+        description: 角色ID
+        type: string
+    required:
+      - deptIds
+      - deptLinkage
+      - roleId
+    type: object
+  sysrole.AssignDeptResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysrole.AssignMenuReq:
+    properties:
+      menuIds:
+        description: 菜单ID列表
+        items:
+          type: string
+        type: array
+      menuLinkage:
+        description: 操作父子联动:1_联动,2_不联动
+        type: integer
+      roleId:
+        description: 角色ID
+        type: string
+    required:
+      - menuIds
+      - menuLinkage
+      - roleId
+    type: object
+  sysrole.AssignMenuResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysrole.DelReq:
+    properties:
+      ids:
+        description: IDs
+        items:
+          type: string
+        type: array
+    required:
+      - ids
+    type: object
+  sysrole.DelResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysrole.EditReq:
+    properties:
+      id:
+        description: 角色ID
+        type: string
+      name:
+        description: 名称
+        maxLength: 30
+        type: string
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      role:
+        description: 角色标识
+        maxLength: 30
+        type: string
+      sort:
+        default: 999
+        description: 显示顺序
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        type: integer
+    required:
+      - id
+      - name
+      - role
+    type: object
+  sysrole.EditResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysrole.GetResp:
+    properties:
+      createBy:
+        description: 创建者
+        type: string
+      createTime:
+        description: 创建时间
+        type: string
+      deptIds:
+        description: 部门ID列表
+        items:
+          type: string
+        type: array
+      deptLinkage:
+        description: 数据父子联动
+        type: integer
+      id:
+        description: 角色ID
+        type: string
+      menuIds:
+        description: 菜单ID列表
+        items:
+          type: string
+        type: array
+      menuLinkage:
+        description: 操作父子联动
+        type: integer
+      name:
+        description: 名称
+        type: string
+      remark:
+        description: 备注
+        type: string
+      role:
+        description: 角色标识
+        type: string
+      sort:
+        description: 显示顺序
+        type: integer
+      status:
+        description: 状态:1_正常,2_停用
+        type: integer
+      updateBy:
+        description: 更新者
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+    type: object
+  sysrole.ListBody:
+    properties:
+      createTime:
+        description: 创建时间
+        type: string
+      deptLinkage:
+        description: 数据父子联动:1_联动,2_不联动
+        type: integer
+      id:
+        description: 角色ID
+        type: string
+      menuLinkage:
+        description: 操作父子联动:1_联动,2_不联动
+        type: integer
+      name:
+        description: 名称
+        type: string
+      remark:
+        description: 备注
+        type: string
+      role:
+        description: 角色标识
+        type: string
+      sort:
+        description: 显示顺序
+        type: integer
+      status:
+        description: 状态:1_正常,2_停用
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: string
+    type: object
+  sysrole.ListResp:
+    properties:
+      rows:
+        items:
+          $ref: '#/definitions/sysrole.ListBody'
+        type: array
+      total:
+        type: string
+    type: object
+  sysuser.AddReq:
+    properties:
+      address:
+        description: 联系地址
+        maxLength: 255
+        type: string
+      avatar:
+        description: 头像
+        maxLength: 100
+        type: string
+      deleteTime:
+        description: 删除时间
+        type: string
+      email:
+        description: 用户邮箱
+        maxLength: 50
+        type: string
+      nickName:
+        description: 用户昵称
+        maxLength: 30
+        type: string
+      password:
+        description: 密码
+        maxLength: 100
+        minLength: 6
+        type: string
+      phone:
+        description: 电话号码
+        maxLength: 20
+        type: string
+      phoneArea:
+        default: '+86'
+        description: 电话区号
+        maxLength: 10
+        type: string
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      sex:
+        default: 1
+        description: 用户性别:1_男,2_女,3_未知
+        enum:
+          - 1
+          - 2
+          - 3
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        maximum: 1
+        type: integer
+      userName:
+        description: 用户账号
+        maxLength: 30
+        type: string
+      userType:
+        default: '00'
+        description: 用户类型:00_系统用户
+        enum:
+          - '00'
+        maxLength: 2
+        type: string
+    required:
+      - address
+      - email
+      - nickName
+      - password
+      - phone
+      - phoneArea
+      - remark
+      - sex
+      - status
+      - userName
+      - userType
+    type: object
+  sysuser.AddResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysuser.AssignDeptReq:
+    properties:
+      deptIds:
+        description: 部门ID列表
+        items:
+          type: string
+        type: array
+      userId:
+        description: 用户ID
+        type: string
+    required:
+      - deptIds
+      - userId
+    type: object
+  sysuser.AssignDeptResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysuser.AssignPostReq:
+    properties:
+      postIds:
+        description: 岗位ID列表
+        items:
+          type: string
+        type: array
+      userId:
+        description: 用户ID
+        type: string
+    required:
+      - postIds
+      - userId
+    type: object
+  sysuser.AssignPostResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysuser.AssignRoleReq:
+    properties:
+      roleIds:
+        description: 角色ID列表
+        items:
+          type: string
+        type: array
+      userId:
+        description: 用户ID
+        type: string
+    required:
+      - roleIds
+      - userId
+    type: object
+  sysuser.AssignRoleResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysuser.DelReq:
+    properties:
+      ids:
+        description: IDs
+        items:
+          type: string
+        type: array
+    required:
+      - ids
+    type: object
+  sysuser.DelResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    required:
+      - affect
+    type: object
+  sysuser.EditReq:
+    properties:
+      address:
+        description: 联系地址
+        maxLength: 255
+        type: string
+      avatar:
+        description: 头像
+        maxLength: 100
+        type: string
+      deleteTime:
+        description: 删除时间
+        type: string
+      email:
+        description: 用户邮箱
+        maxLength: 50
+        type: string
+      id:
+        description: 用户ID
+        type: string
+      nickName:
+        description: 用户昵称
+        maxLength: 30
+        type: string
+      password:
+        description: 密码，空表示不修改
+        maxLength: 100
+        minLength: 6
+        type: string
+      phone:
+        description: 电话号码
+        maxLength: 20
+        type: string
+      phoneArea:
+        default: '+86'
+        description: 电话区号
+        maxLength: 10
+        type: string
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      sex:
+        default: 1
+        description: 用户性别:1_男,2_女,3_未知
+        enum:
+          - 1
+          - 2
+          - 3
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        maximum: 1
+        type: integer
+      userName:
+        description: 用户账号
+        maxLength: 30
+        type: string
+      userType:
+        default: '00'
+        description: 用户类型:00_系统用户
+        enum:
+          - '00'
+        maxLength: 2
+        type: string
+    required:
+      - address
+      - email
+      - id
+      - nickName
+      - phone
+      - phoneArea
+      - remark
+      - sex
+      - status
+      - userName
+      - userType
+    type: object
+  sysuser.EditResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+  sysuser.GetResp:
+    properties:
+      address:
+        description: 联系地址
+        maxLength: 255
+        type: string
+      avatar:
+        description: 头像
+        maxLength: 100
+        type: string
+      createBy:
+        description: 创建者
+        type: string
+      createTime:
+        description: 创建时间
+        type: string
+      depts:
+        description: 关联部门IDs
+        items:
+          type: string
+        type: array
+      email:
+        description: 用户邮箱
+        maxLength: 50
+        type: string
+      id:
+        description: 用户ID
+        type: string
+      nickName:
+        description: 用户昵称
+        maxLength: 30
+        type: string
+      phone:
+        description: 电话号码
+        maxLength: 20
+        type: string
+      phoneArea:
+        default: '+86'
+        description: 电话区号
+        maxLength: 10
+        type: string
+      posts:
+        description: 关联岗位IDs
+        items:
+          type: string
+        type: array
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      roles:
+        description: 关联角色IDs
+        items:
+          type: string
+        type: array
+      sex:
+        default: 1
+        description: 用户性别:1_男,2_女,3_未知
+        enum:
+          - 1
+          - 2
+          - 3
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        maximum: 1
+        type: integer
+      updateBy:
+        description: 更新者
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+      userName:
+        description: 用户账号
+        maxLength: 30
+        type: string
+      userType:
+        default: '00'
+        description: 用户类型:00_系统用户
+        enum:
+          - '00'
+        maxLength: 2
+        type: string
+    required:
+      - address
+      - avatar
+      - createBy
+      - createTime
+      - email
+      - id
+      - nickName
+      - phone
+      - phoneArea
+      - remark
+      - sex
+      - status
+      - updateBy
+      - updateTime
+      - userName
+      - userType
+    type: object
+  sysuser.ImportFail:
+    properties:
+      reason:
+        description: 失败原因
+        type: string
+      row:
+        description: Excel 行号（从 2 起为数据行）
+        type: integer
+    type: object
+  sysuser.ImportResp:
+    properties:
+      failList:
+        description: 失败行（行号+原因）
+        items:
+          $ref: '#/definitions/sysuser.ImportFail'
+        type: array
+      successCount:
+        description: 成功条数
+        type: integer
+    type: object
+  sysuser.ListBody:
+    properties:
+      address:
+        description: 联系地址
+        maxLength: 255
+        type: string
+      avatar:
+        description: 头像
+        maxLength: 100
+        type: string
+      createBy:
+        description: 创建者
+        type: string
+      createTime:
+        description: 创建时间
+        type: string
+      depts:
+        description: 关联部门IDs
+        items:
+          type: string
+        type: array
+      email:
+        description: 用户邮箱
+        maxLength: 50
+        type: string
+      id:
+        description: 用户ID
+        type: string
+      nickName:
+        description: 用户昵称
+        maxLength: 30
+        type: string
+      phone:
+        description: 电话号码
+        maxLength: 20
+        type: string
+      phoneArea:
+        default: '+86'
+        description: 电话区号
+        maxLength: 10
+        type: string
+      posts:
+        description: 关联岗位IDs
+        items:
+          type: string
+        type: array
+      remark:
+        description: 备注
+        maxLength: 500
+        type: string
+      roles:
+        description: 关联角色IDs
+        items:
+          type: string
+        type: array
+      sex:
+        default: 1
+        description: 用户性别:1_男,2_女,3_未知
+        enum:
+          - 1
+          - 2
+          - 3
+        type: integer
+      status:
+        default: 1
+        description: 状态:1_正常,2_停用
+        enum:
+          - 1
+          - 2
+        maximum: 1
+        type: integer
+      updateBy:
+        description: 更新者
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+      userName:
+        description: 用户账号
+        maxLength: 30
+        type: string
+      userType:
+        default: '00'
+        description: 用户类型:00_系统用户
+        enum:
+          - '00'
+        maxLength: 2
+        type: string
+    required:
+      - address
+      - avatar
+      - createBy
+      - createTime
+      - email
+      - id
+      - nickName
+      - phone
+      - phoneArea
+      - remark
+      - sex
+      - status
+      - updateBy
+      - updateTime
+      - userName
+      - userType
+    type: object
+  sysuser.ListResp:
+    properties:
+      rows:
+        items:
+          $ref: '#/definitions/sysuser.ListBody'
+        type: array
+      total:
+        type: string
+    type: object
+  sysuser.ResetPasswordReq:
+    properties:
+      password:
+        description: 新密码
+        maxLength: 100
+        minLength: 6
+        type: string
+      userId:
+        description: 用户ID
+        type: string
+    required:
+      - password
+      - userId
+    type: object
+  sysuser.ResetPasswordResp:
+    properties:
+      affect:
+        description: 影响条数
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: u8tou@qq.com
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: '1.0'
+paths:
+  /common/get_file/{dir}/{obj}:
+    get:
+      description: 获取文件（仅允许访问配置的 Local 目录下的文件，防御路径穿越）
+      parameters:
+        - description: 文件夹
+          in: path
+          name: dir
+          required: true
+          type: string
+        - description: 文件名
+          in: path
+          name: obj
+          required: true
+          type: string
+      produces:
+        - application/octet-stream
+      responses:
+        '200':
+          description: 文件内容
+          schema:
+            type: file
+      summary: 公共接口_获取文件
+      tags:
+        - SysCommonApi
+  /sys_auth/avatar:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 当前登录用户上传头像图片，支持 jpg/png/gif/webp，最大 5MB
+      parameters:
+        - description: 头像图片
+          in: formData
+          name: file
+          required: true
+          type: file
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysauth.UploadAvatarResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统认证_上传个人头像
+      tags:
+        - SysAuthApi
+  /sys_auth/change_password:
+    post:
+      consumes:
+        - application/json
+      description: 当前登录用户修改密码
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysauth.ChangePasswordReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统认证_修改密码
+      tags:
+        - SysAuthApi
+  /sys_auth/info:
+    get:
+      consumes:
+        - application/json
+      description: 登入信息
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysauth.InfoResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统认证_登入信息
+      tags:
+        - SysAuthApi
+  /sys_auth/login:
+    post:
+      consumes:
+        - application/json
+      description: 用户登陆
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysauth.LoginReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysauth.LoginResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      summary: 系统认证_登入
+      tags:
+        - SysAuthApi
+  /sys_auth/logout:
+    post:
+      consumes:
+        - application/json
+      description: 用户登出
+      produces:
+        - application/json
+      responses: {}
+      security:
+        - ApiKeyAuth: []
+      summary: 系统认证_登出
+      tags:
+        - SysAuthApi
+  /sys_auth/profile:
+    post:
+      consumes:
+        - application/json
+      description: 当前登录用户更新昵称、邮箱、电话、性别、地址等
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysauth.UpdateProfileReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统认证_更新个人信息
+      tags:
+        - SysAuthApi
+  /sys_auth/refresh_token:
+    post:
+      consumes:
+        - application/json
+      description: 使用 RefreshToken 换取新的 AccessToken
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysauth.RefreshTokenReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysauth.LoginResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      summary: 系统认证_Token刷新
+      tags:
+        - SysAuthApi
+  /sys_dept/add:
+    post:
+      consumes:
+        - application/json
+      description: 新增记录\n权限标识：sys:dept:add
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysdept.AddReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysdept.AddResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统部门表_新增
+      tags:
+        - SysDeptApi
+  /sys_dept/all:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 全部数据\n权限标识：无需权限（仅需登录）
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysdept.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统部门表_全部
+      tags:
+        - SysDeptApi
+  /sys_dept/del:
+    delete:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 删除记录\n权限标识：sys:dept:del
+      parameters:
+        - collectionFormat: csv
+          description: IDs
+          in: query
+          items:
+            type: string
+          name: ids
+          required: true
+          type: array
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysdept.DelResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统部门表_删除
+      tags:
+        - SysDeptApi
+  /sys_dept/edit:
+    put:
+      consumes:
+        - application/json
+      description: 编辑记录\n权限标识：sys:dept:edit
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: message
+          required: true
+          schema:
+            $ref: '#/definitions/sysdept.EditReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysdept.EditResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统部门表_编辑
+      tags:
+        - SysDeptApi
+  /sys_dept/get:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 获取详情\n权限标识：sys:dept:get
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysdept.GetResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统部门表_查找
+      tags:
+        - SysDeptApi
+  /sys_dept/list:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 分页列表\n权限标识：sys:dept:list
+      parameters:
+        - default: 1
+          description: 页码
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: current
+          required: true
+          type: integer
+        - description: 负责人邮箱
+          in: query
+          name: email
+          type: string
+        - description: ID
+          in: query
+          name: id
+          type: string
+        - description: 负责人
+          in: query
+          name: leader
+          type: string
+        - description: 部门名称
+          in: query
+          name: name
+          type: string
+        - description: 负责人电话
+          in: query
+          name: phone
+          type: string
+        - description: 上级部门ID
+          in: query
+          name: pid
+          type: string
+        - description: 部门简介
+          in: query
+          name: profile
+          type: string
+        - default: 20
+          description: 页长
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: size
+          required: true
+          type: integer
+        - description: 排序
+          in: query
+          name: sort
+          type: integer
+        - description: 状态:1_正常,0_停用
+          enum:
+            - 1
+            - 2
+          in: query
+          name: status
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysdept.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统部门表_分页
+      tags:
+        - SysDeptApi
+  /sys_im/chat:
+    get:
+      consumes:
+        - application/json
+      description: 建立 IM 聊天室 WebSocket 连接。可选传 token 鉴权：有 token 且有效则显示登录用户昵称和头像，无 token 为游客。nickName 为纯昵称如 小王、游客；会话唯一性由 loginId、connId 区分。连接后通过 JSON 消息交互：<br/>客户端→服务端：join(roomId)、leave(roomId)、message(roomId,content)；<br/>服务端→客户端：message、joined、left、error、online(成员上线广播)、offline(成员下线广播)。<br/>joined/left/online/offline 推送 memberCount 字段；joined 为当前房间人数（含自己），left 为剩余人数（不含自己），online 为当前人数（含新上线者），offline 为剩余人数（不含下线者）。
+      parameters:
+        - description: 鉴权 token（可选），有则显示用户昵称，无则为游客
+          in: query
+          name: token
+          type: string
+      produces:
+        - application/json
+      responses:
+        '101':
+          description: Switching Protocols，升级为 WebSocket
+          schema:
+            type: string
+        '400':
+          description: 非 WebSocket 升级请求
+          schema:
+            type: string
+      summary: IM 聊天室 WebSocket
+      tags:
+        - SysImApi
+  /sys_menu/all:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 全量列表\n权限标识：无需权限（仅需登录）
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysmenu.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统菜单_全量
+      tags:
+        - SysMenuApi
+  /sys_menu/get:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 查询详情\n权限标识：sys:menu:get
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysmenu.GetResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统菜单_详情
+      tags:
+        - SysMenuApi
+  /sys_menu/list:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 分页列表\n权限标识：sys:menu:list
+      parameters:
+        - default: 1
+          description: 页码
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: current
+          required: true
+          type: integer
+        - description: ID
+          in: query
+          name: id
+          type: string
+        - description: 权限代码
+          in: query
+          maxLength: 50
+          name: permis
+          type: string
+        - description: 父ID
+          in: query
+          name: pid
+          type: string
+        - default: 20
+          description: 页长
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: size
+          required: true
+          type: integer
+        - description: 类型:1_菜单,2_权限
+          enum:
+            - 1
+            - 2
+          in: query
+          name: types
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysmenu.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统菜单_分页
+      tags:
+        - SysMenuApi
+  /sys_post/add:
+    post:
+      consumes:
+        - application/json
+      description: 新增记录\n权限标识：sys:post:add
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/syspost.AddReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/syspost.AddResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 岗位_新增
+      tags:
+        - SysPostApi
+  /sys_post/all:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 全部数据（如下拉）\n权限标识：无需权限（仅需登录）
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/syspost.ListResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 岗位_全部
+      tags:
+        - SysPostApi
+  /sys_post/del:
+    delete:
+      consumes:
+        - application/json
+      description: 删除记录\n权限标识：sys:post:del
+      parameters:
+        - description: IDs
+          in: body
+          name: ids
+          required: true
+          schema:
+            $ref: '#/definitions/syspost.DelReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/syspost.DelResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 岗位_删除
+      tags:
+        - SysPostApi
+  /sys_post/edit:
+    put:
+      consumes:
+        - application/json
+      description: 编辑记录\n权限标识：sys:post:edit
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: message
+          required: true
+          schema:
+            $ref: '#/definitions/syspost.EditReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/syspost.EditResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 岗位_编辑
+      tags:
+        - SysPostApi
+  /sys_post/get:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 获取详情\n权限标识：sys:post:get
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/syspost.GetResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 岗位_详情
+      tags:
+        - SysPostApi
+  /sys_post/list:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 分页列表\n权限标识：sys:post:list
+      parameters:
+        - default: 1
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: current
+          required: true
+          type: integer
+        - in: query
+          name: id
+          type: string
+        - in: query
+          name: name
+          type: string
+        - default: 20
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: size
+          required: true
+          type: integer
+        - in: query
+          name: sort
+          type: integer
+        - enum:
+            - 1
+            - 2
+          in: query
+          name: status
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/syspost.ListResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 岗位_分页
+      tags:
+        - SysPostApi
+  /sys_role/add:
+    post:
+      consumes:
+        - application/json
+      description: 新增角色\n权限标识：sys:role:add
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysrole.AddReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.AddResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_新增
+      tags:
+        - SysRoleApi
+  /sys_role/all:
+    get:
+      description: 获取所有角色\n权限标识：无需权限（仅需登录）
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    items:
+                      $ref: '#/definitions/sysrole.ListBody'
+                    type: array
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_全量
+      tags:
+        - SysRoleApi
+  /sys_role/assign_dept:
+    post:
+      consumes:
+        - application/json
+      description: 为角色分配部门权限\n权限标识：sys:role:assign_dept
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysrole.AssignDeptReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.AssignDeptResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_分配部门权限
+      tags:
+        - SysRoleApi
+  /sys_role/assign_menu:
+    post:
+      consumes:
+        - application/json
+      description: 为角色分配菜单权限\n权限标识：sys:role:assign_menu
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysrole.AssignMenuReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.AssignMenuResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_分配菜单权限
+      tags:
+        - SysRoleApi
+  /sys_role/del:
+    delete:
+      consumes:
+        - application/json
+      description: 删除角色\n权限标识：sys:role:del
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysrole.DelReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.DelResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_删除
+      tags:
+        - SysRoleApi
+  /sys_role/edit:
+    put:
+      consumes:
+        - application/json
+      description: 编辑角色\n权限标识：sys:role:edit
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysrole.EditReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.EditResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_编辑
+      tags:
+        - SysRoleApi
+  /sys_role/get:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 查询详情\n权限标识：sys:role:get
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.GetResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_详情
+      tags:
+        - SysRoleApi
+  /sys_role/list:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 分页列表\n权限标识：sys:role:list
+      parameters:
+        - default: 1
+          description: 页码
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: current
+          required: true
+          type: integer
+        - description: 角色ID
+          in: query
+          name: id
+          type: string
+        - description: 角色名称
+          in: query
+          maxLength: 30
+          name: name
+          type: string
+        - description: 角色标识
+          in: query
+          maxLength: 30
+          name: role
+          type: string
+        - default: 20
+          description: 页长
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: size
+          required: true
+          type: integer
+        - description: 状态:1_正常,2_停用
+          enum:
+            - 1
+            - 2
+          in: query
+          name: status
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysrole.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统角色_分页
+      tags:
+        - SysRoleApi
+  /sys_sse:
+    get:
+      consumes:
+        - application/json
+      description: 建立 Server-Sent Events 连接。connId 由后端用分布式 ID 生成，前端无需传；传 token 鉴权：有 token 且有效则为登录用户，sseId=loginId_connId，可被 SendToUser 定向通知；无 token 或无效为游客，sseId=guest_connId，仅能接收广播。
+      parameters:
+        - description: 鉴权 token（可选，也可放 Authorization 头）
+          in: query
+          name: token
+          type: string
+      produces:
+        - text/event-stream
+      responses:
+        '200':
+          description: text/event-stream 流式响应，含 heartbeat 保活
+          schema:
+            type: string
+      summary: SSE 长连接
+      tags:
+        - SysSseApi
+  /sys_user/add:
+    post:
+      consumes:
+        - application/json
+      description: 新增记录\n权限标识：sys:user:add
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.AddReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.AddResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_新增
+      tags:
+        - SysUserApi
+  /sys_user/all:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 全部数据\n权限标识：sys:user:get
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_全部
+      tags:
+        - SysUserApi
+  /sys_user/assign_dept:
+    post:
+      consumes:
+        - application/json
+      description: 为用户分配部门\n权限标识：sys:user:assign_dept
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.AssignDeptReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.AssignDeptResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_分配部门
+      tags:
+        - SysUserApi
+  /sys_user/assign_post:
+    post:
+      consumes:
+        - application/json
+      description: 为用户分配岗位\n权限标识：sys:user:assign_post
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.AssignPostReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.AssignPostResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_分配岗位
+      tags:
+        - SysUserApi
+  /sys_user/assign_role:
+    post:
+      consumes:
+        - application/json
+      description: 为用户分配角色\n权限标识：sys:user:assign_role
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.AssignRoleReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.AssignRoleResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_分配角色
+      tags:
+        - SysUserApi
+  /sys_user/del:
+    delete:
+      consumes:
+        - application/json
+      description: 删除记录\n权限标识：sys:user:del
+      parameters:
+        - description: IDs
+          in: body
+          name: ids
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.DelReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.DelResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_删除
+      tags:
+        - SysUserApi
+  /sys_user/edit:
+    put:
+      consumes:
+        - application/json
+      description: 编辑记录\n权限标识：sys:user:edit
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: message
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.EditReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.EditResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_编辑
+      tags:
+        - SysUserApi
+  /sys_user/export:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 按条件导出用户列表为 Excel（仅基础信息，不含密码）\n权限标识：sys:user:list
+      parameters:
+        - default: 1
+          description: 页码
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: current
+          required: true
+          type: integer
+        - description: 部门ID
+          in: query
+          name: deptId
+          type: string
+        - description: 用户邮箱
+          in: query
+          maxLength: 50
+          name: email
+          type: string
+        - description: 用户ID
+          in: query
+          name: id
+          type: string
+        - description: 用户昵称
+          in: query
+          maxLength: 30
+          name: nickName
+          type: string
+        - description: 电话号码
+          in: query
+          maxLength: 20
+          name: phone
+          type: string
+        - default: 1
+          description: 用户性别:1_男,2_女,3_未知
+          enum:
+            - 1
+            - 2
+            - 3
+          in: query
+          name: sex
+          type: integer
+        - default: 20
+          description: 页长
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: size
+          required: true
+          type: integer
+        - default: 1
+          description: 状态:1_正常,2_停用
+          enum:
+            - 1
+            - 2
+          in: query
+          maximum: 1
+          name: status
+          type: integer
+        - collectionFormat: csv
+          description: 时间范围（创建时间，Unix 秒时间戳区间：[开始,结束]）
+          in: query
+          items:
+            type: string
+          name: timeRange
+          type: array
+        - description: 用户账号
+          in: query
+          maxLength: 30
+          name: userName
+          type: string
+      produces:
+        - application/octet-stream
+      responses:
+        '200':
+          description: 用户列表.xlsx
+          schema:
+            type: file
+      security:
+        - ApiKeyAuth: []
+      summary: 用户导出
+      tags:
+        - SysUserApi
+  /sys_user/get:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 获取详情\n权限标识：sys:user:get
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.GetResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_查找
+      tags:
+        - SysUserApi
+  /sys_user/import:
+    post:
+      consumes:
+        - multipart/form-data
+      description: '上传 Excel 按模板导入用户（multipart/form-data）。file: 文件；updateExisting: 是否更新已存在的用户（true/1 为是）\n权限标识：sys:user:add'
+      parameters:
+        - description: 用户导入模板填写的 xlsx 文件
+          in: formData
+          name: file
+          required: true
+          type: file
+        - description: 是否更新已经存在的用户数据
+          in: formData
+          name: updateExisting
+          type: boolean
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.ImportResp'
+                type: object
+      security:
+        - ApiKeyAuth: []
+      summary: 用户导入
+      tags:
+        - SysUserApi
+  /sys_user/list:
+    get:
+      consumes:
+        - application/x-www-form-urlencoded
+      description: 分页列表\n权限标识：sys:user:list
+      parameters:
+        - default: 1
+          description: 页码
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: current
+          required: true
+          type: integer
+        - description: 部门ID
+          in: query
+          name: deptId
+          type: string
+        - description: 用户邮箱
+          in: query
+          maxLength: 50
+          name: email
+          type: string
+        - description: 用户ID
+          in: query
+          name: id
+          type: string
+        - description: 用户昵称
+          in: query
+          maxLength: 30
+          name: nickName
+          type: string
+        - description: 电话号码
+          in: query
+          maxLength: 20
+          name: phone
+          type: string
+        - default: 1
+          description: 用户性别:1_男,2_女,3_未知
+          enum:
+            - 1
+            - 2
+            - 3
+          in: query
+          name: sex
+          type: integer
+        - default: 20
+          description: 页长
+          in: query
+          maximum: 999999
+          minimum: 1
+          name: size
+          required: true
+          type: integer
+        - default: 1
+          description: 状态:1_正常,2_停用
+          enum:
+            - 1
+            - 2
+          in: query
+          maximum: 1
+          name: status
+          type: integer
+        - collectionFormat: csv
+          description: 时间范围（创建时间，Unix 秒时间戳区间：[开始,结束]）
+          in: query
+          items:
+            type: string
+          name: timeRange
+          type: array
+        - description: 用户账号
+          in: query
+          maxLength: 30
+          name: userName
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.ListResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_分页
+      tags:
+        - SysUserApi
+  /sys_user/reset_pwd:
+    post:
+      consumes:
+        - application/json
+      description: 为指定用户重置密码\n权限标识：sys:user:reset_pwd
+      parameters:
+        - description: Request Parameters
+          in: body
+          name: args
+          required: true
+          schema:
+            $ref: '#/definitions/sysuser.ResetPasswordReq'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            allOf:
+              - $ref: '#/definitions/resp.MyResp'
+              - properties:
+                  data:
+                    $ref: '#/definitions/sysuser.ResetPasswordResp'
+                type: object
+        '500':
+          description: Failure
+          schema:
+            $ref: '#/definitions/resp.MyResp'
+      security:
+        - ApiKeyAuth: []
+      summary: 系统用户_重置密码
+      tags:
+        - SysUserApi
+  /sys_user/template:
+    get:
+      description: 下载用户导入 Excel 模板（仅含基础信息列）\n权限标识：sys:user:list
+      produces:
+        - application/octet-stream
+      responses:
+        '200':
+          description: 用户导入模板.xlsx
+          schema:
+            type: file
+      security:
+        - ApiKeyAuth: []
+      summary: 用户导入模板下载
+      tags:
+        - SysUserApi
+  /sys_websocket:
+    get:
+      consumes:
+        - application/json
+      description: 建立 WebSocket 连接，支持服务端推送与客户端上报；需传 uuid 标识连接，通过 syswebsocket.SendMsg(uuid, tag, msg) 推送；客户端可发送文本/二进制，服务端会 echo 文本消息
+      parameters:
+        - description: 连接标识，用于后续 SendMsg 定向推送
+          in: query
+          name: uuid
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '101':
+          description: Switching Protocols，升级为 WebSocket
+          schema:
+            type: string
+        '400':
+          description: uuid 为空或非 WebSocket 升级请求
+          schema:
+            type: string
+      summary: WebSocket 全双工连接
+      tags:
+        - SysWebSocketApi
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: '2.0'

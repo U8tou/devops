@@ -1,0 +1,48 @@
+package {{toAllLower .StructName}}
+
+import (
+	{{toAllLower .StructName}} "system/impl/{{.ModulePath}}"
+	"system/model"
+	r "pkg/resp"
+    "pkg/tools/datacv"
+
+	"github.com/gofiber/fiber/v2"
+)
+
+// @Summary		{{.StructDoc}}_全部
+// @Description	全部数据
+// @Tags			{{.StructName}}Api
+// @Security		ApiKeyAuth
+// @Accept			x-www-form-urlencoded
+// @Produce		json
+// @Success		200	{object}	resp.MyResp{data=ListResp}	"Success"
+// @Failure		500	{object}	resp.MyResp					"Failure"
+// @Router			/{{.ModulePath}}/all [get]
+func All(c *fiber.Ctx) error {
+	// 处理
+	var args model.{{.StructName}}Dto
+	args.Status = 1
+	var i{{.StructName}}Impl = {{toAllLower .StructName}}.Impl()
+	_, rows, err := i{{.StructName}}Impl.List(c.Context(), &args)
+	if err != nil {
+		return err
+	}
+	// 响应
+	var rp ListResp
+	rp.Total = datacv.IntToStr(int64(len(rows)))
+	rp.Rows = make([]ListBody, len(rows))
+	for idx, row := range rows {
+		var body ListBody
+	{{- range $index := .StructRows}}
+    {{- if (ne .Name "DeleteTime")}}
+    {{- if eq .Typ "int64"}}
+        body.{{.Name}} = datacv.IntToStr(row.{{.Name}})
+    {{- else}}
+        body.{{.Name}} = row.{{.Name}}
+    {{- end}}
+    {{- end}}
+    {{- end}}
+		rp.Rows[idx] = body
+	}
+	return r.Resp(c, rp)
+}

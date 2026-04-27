@@ -1,0 +1,49 @@
+package {{toAllLower .StructName}}
+
+import (
+	{{toAllLower .StructName}} "system/impl/{{.ModulePath}}"
+	"pkg/errs"
+	r "pkg/resp"
+	"pkg/tools/datacv"
+
+	"pkg/validator"
+	"github.com/gofiber/fiber/v2"
+)
+
+// @Summary		{{.StructDoc}}_查找
+// @Description	获取详情
+// @Tags			{{.StructName}}Api
+// @Security		ApiKeyAuth
+// @Accept			x-www-form-urlencoded
+// @Produce		json
+// @Param			id	query		GetReq						true	"ID"
+// @Success		200	{object}	resp.MyResp{data=GetResp}	"Success"
+// @Failure		500	{object}	resp.MyResp					"Failure"
+// @Router			/{{.ModulePath}}/get [get]
+func Get(c *fiber.Ctx) error {
+	// 请求
+	var rq GetReq
+	rq.Id = c.Query("id")
+	err := validator.Struct(rq)
+	if err != nil {
+		return errs.Args(err)
+	}
+	// 处理
+	var i{{.StructName}}Impl = {{toAllLower .StructName}}.Impl()
+	row, err := i{{.StructName}}Impl.Get(c.Context(), rq.Id)
+	if err != nil {
+		return err
+	}
+	// 响应
+	var rp GetResp
+{{- range $index := .StructRows}}
+{{- if (ne .Name "DeleteTime")}}
+{{- if eq .Typ "int64"}}
+    rp.{{.Name}} = datacv.IntToStr(row.{{.Name}})
+{{- else}}
+    rp.{{.Name}} = row.{{.Name}}
+{{- end}}
+{{- end}}
+{{- end}}
+	return r.Resp(c, rp)
+}

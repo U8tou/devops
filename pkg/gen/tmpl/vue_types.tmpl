@@ -1,0 +1,51 @@
+declare namespace Api {
+  /** {{.StructDoc}}类型 */
+  namespace {{.ModuleNamespace}} {
+    /** {{.StructDoc}}列表项 */
+    interface {{.EntityName}}ListItem {
+{{- range $index := .StructRows}}
+{{- if (ne .Name "DeleteTime")}}
+      {{toLower .Name}}?: {{.TsTyp}} // {{.Doc}}
+{{- end}}
+{{- end}}
+    }
+
+    /** {{.StructDoc}}详情 */
+    interface {{.EntityName}}Detail {
+{{- range $index := .StructRows}}
+{{- if (ne .Name "DeleteTime")}}
+      {{toLower .Name}}?: {{.TsTyp}} // {{.Doc}}
+{{- end}}
+{{- end}}
+    }
+
+    /** {{.StructDoc}}新增请求 */
+    interface {{.EntityName}}AddReq {
+{{- range $index := .StructRows}}
+{{- if and (ne .Name "Id") (ne .Name "CreateTime") (ne .Name "CreateBy") (ne .Name "UpdateTime") (ne .Name "UpdateBy") (ne .Name "DeleteTime")}}
+      {{toLower .Name}}: {{.TsTyp}} // {{.Doc}}
+{{- end}}
+{{- end}}
+    }
+
+    /** {{.StructDoc}}编辑请求 */
+    interface {{.EntityName}}EditReq {
+{{- range $index := .StructRows}}
+{{- if and (ne .Name "CreateTime") (ne .Name "CreateBy") (ne .Name "UpdateTime") (ne .Name "UpdateBy") (ne .Name "DeleteTime")}}
+      {{toLower .Name}}: {{.TsTyp}} // {{.Doc}}
+{{- end}}
+{{- end}}
+    }
+
+    /** {{.StructDoc}}列表响应 */
+    interface {{.EntityName}}ListResponse {
+      rows: {{.EntityName}}ListItem[]
+      total: string
+    }
+
+    /** {{.StructDoc}}搜索参数 */
+    type {{.EntityName}}SearchParams = Partial<
+      Pick<{{.EntityName}}ListItem, {{.QueryPick}}> & Api.Common.CommonSearchParams
+    >
+  }
+}

@@ -1,0 +1,171 @@
+<!-- {{.StructDoc}}管理页面 -->
+<template>
+  <div class="art-full-height">
+    <{{.EntityName}}Search
+      v-show="showSearchBar"
+      v-model="searchForm"
+      @search="handleSearch"
+      @reset="resetSearchParams"
+    ></{{.EntityName}}Search>
+
+    <ElCard
+      class="art-table-card"
+      shadow="never"
+      :style="{ 'margin-top': showSearchBar ? '12px' : '0' }"
+    >
+      <ArtTableHeader
+        v-model:columns="columnChecks"
+        v-model:showSearchBar="showSearchBar"
+        :loading="loading"
+        @refresh="refreshData"
+      >
+        <template #left>
+          <ElSpace wrap>
+            <ElButton v-auth="'{{toColon .StructName}}:add'" @click="showDialog('add')" v-ripple
+              >新增{{.StructDoc}}</ElButton
+            >
+          </ElSpace>
+        </template>
+      </ArtTableHeader>
+
+      <ArtTable
+        :loading="loading"
+        :data="data"
+        :columns="columns"
+        :pagination="pagination"
+        @pagination:size-change="handleSizeChange"
+        @pagination:current-change="handleCurrentChange"
+      >
+        <template #timeInfo="{ row }">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <div style="display: flex; align-items: center; gap: 4px; color: #303133">
+              <ArtSvgIcon icon="ri:calendar-line" style="font-size: 14px; color: #909399; flex-shrink: 0" />
+              <span>{{"{{"}} row.createTime ? formatTime(row.createTime) : '-' {{"}}"}}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #909399">
+              <ArtSvgIcon icon="ri:refresh-line" style="font-size: 14px; color: #909399; flex-shrink: 0" />
+              <span>{{"{{"}} row.updateTime ? formatTime(row.updateTime) : '-' {{"}}"}}</span>
+            </div>
+          </div>
+        </template>
+        <template #operation="{ row }">
+          <div style="display: flex; justify-content: flex-end; align-items: center">
+            <ArtButtonTable v-auth="'{{toColon .StructName}}:edit'" type="edit" @click="showDialog('edit', row)" />
+            <ArtButtonTable v-auth="'{{toColon .StructName}}:del'" type="delete" @click="handleDelete(row)" />
+          </div>
+        </template>
+      </ArtTable>
+    </ElCard>
+
+    <{{.EntityName}}EditDialog
+      v-model="dialogVisible"
+      :dialog-type="dialogType"
+      :current-data="currentData"
+      @success="refreshData"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { useTable } from '@/hooks/core/useTable'
+  import { fetchGet{{.EntityName}}List, fetchDelete{{.EntityName}} } from '@/api/{{.ModulePath}}'
+  import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
+  import {{.EntityName}}Search from './modules/{{.EntityKebab}}-search.vue'
+  import {{.EntityName}}EditDialog from './modules/{{.EntityKebab}}-edit-dialog.vue'
+  import { ElTag, ElMessageBox, ElMessage } from 'element-plus'
+  import { parseTime } from '@/utils/ruoyi'
+  import ArtSvgIcon from '@/components/core/base/art-svg-icon/index.vue'
+  import { h } from 'vue'
+
+  defineOptions({ name: '{{.EntityName}}' })
+
+  type ListItem = Api.{{.ModuleNamespace}}.{{.EntityName}}ListItem
+
+  const searchForm = ref<Record<string, any>>({
+{{- range $r := .StructRows}}
+{{- if and ($r.Query) (ne $r.Name "CreateTime") (ne $r.Name "UpdateTime") (ne $r.Name "DeleteTime")}}
+    {{toLower $r.Name}}: undefined,
+{{- end}}
+{{- end}}
+    daterange: undefined
+  })
+
+  const showSearchBar = ref(true)
+  const dialogVisible = ref(false)
+  const currentData = ref<{ id: string } | undefined>(undefined)
+
+  const {
+    columns,
+    columnChecks,
+    data,
+    loading,
+    pagination,
+    getData,
+    searchParams,
+    resetSearchParams,
+    handleSizeChange,
+    handleCurrentChange,
+    refreshData
+  } = useTable({
+    core: {
+      apiFn: fetchGet{{.EntityName}}List,
+      apiParams: { current: 1, size: 20 },
+      excludeParams: ['daterange'],
+      columnsFactory: () => [
+        { type: 'globalIndex', label: '序号', width: 80, align: 'center' },
+{{- range $r := .StructRows}}
+{{- if and (ne $r.Name "DeleteTime") (ne $r.Name "CreateTime") (ne $r.Name "UpdateTime") (ne $r.Name "Id")}}
+{{- if eq $r.Name "Status"}}
+        {
+          prop: 'status',
+          label: '状态',
+          width: 120,
+          align: 'center',
+          formatter: (row: ListItem) => {
+            const cfg = row.status === 1 ? { type: 'success', text: '正常' } : { type: 'info', text: '停用' }
+            return h(ElTag, { type: cfg.type as 'success' | 'info' }, () => cfg.text)
+          }
+        },
+{{- else}}
+        { prop: '{{toLower $r.Name}}', label: '{{$r.NameDoc}}', minWidth: 120 },
+{{- end}}
+{{- end}}
+{{- end}}
+        { prop: 'timeInfo', label: '时间信息', minWidth: 220, align: 'left', useSlot: true },
+        { prop: 'operation', label: '操作', width: 150, fixed: 'right', align: 'right', headerAlign: 'center', useSlot: true }
+      ]
+    }
+  })
+
+  const dialogType = ref<'add' | 'edit'>('add')
+
+  const showDialog = (type: 'add' | 'edit', row?: ListItem) => {
+    dialogVisible.value = true
+    dialogType.value = type
+    currentData.value = row ? { id: row.id! } : undefined
+  }
+
+  const handleSearch = (params: Record<string, any>) => {
+    const { daterange, ...rest } = params
+    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
+    Object.assign(searchParams, { ...rest, startTime, endTime })
+    getData()
+  }
+
+  const formatTime = (t: string | number | null | undefined) => parseTime(t) || '-'
+
+  const handleDelete = async (row: ListItem) => {
+    try {
+      await ElMessageBox.confirm(`确定删除{{.StructDoc}}吗？此操作不可恢复！`, '删除确认', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+      await fetchDelete{{.EntityName}}([row.id!])
+      ElMessage.success('删除成功')
+      refreshData()
+    } catch (e) {
+      if (e !== 'cancel') ElMessage.error(e instanceof Error ? e.message : '删除失败')
+    }
+  }
+</script>

@@ -1,0 +1,94 @@
+# DevOps 流程执行：本地工作区根目录（相对进程 cwd 或绝对路径）
+devops:
+  workspaceRoot: "./devops_workspace"
+
+app:
+  id: 1 # 数据库唯一ID生成参数，集群部署需要配置不同serverId
+  name: SHH_SERVER
+  doc: 山湖海
+  version: v0.0.1
+  baseUrl: "/api"
+  addr: 127.0.0.1
+  port: 2999
+  env: DEV
+  # 前端后端约定加密解密key, 若配置则走加密解密请求响应，为空则走常规
+  encryptKey: "abc123456"
+log:
+  level: debug # 日志级别 debug info warn error
+  stdOut: true # 开启控制台输出
+  filename: "logs/app.log" # 日志文件的位置
+  MaxSize: 10 # 文件最大尺寸（以MB为单位）
+  MaxBackups: 3 # 保留的最大旧文件数量
+  MaxAge: 28 # 保留旧文件的最大天数
+  Compress: true # 是否压缩/归档旧文件
+  LocalTime: true # 使用本地时间创建时间戳
+openobserver:
+  baseUrl: http://127.0.0.1:5080/api
+  streams: default
+  index: default
+  user: u8tou@qq.com
+  token: pwokYEMY1BZSWodF # Mengbao#123
+  interval: 1 # 推送间隔(秒)
+  threshold: 100 # 推送阈值(条)
+auth:
+  captcha: false # 开启图形验证码
+  retryCount: 5 # 登陆密码最大错误次数
+  retryTime: 5 # 登陆重试次数验证过期时间
+  use: local # local redis 若使用redis,需要配置下面的redis信息
+  tokenName: Authorization # 请求头
+  timeout: 3600 # 过期时间,单位秒
+  keyPrefix: satoken # 缓存开头标识
+  pubUrl:
+    - "/sys_auth/monitor/"
+    - "/sys_auth/login/"
+    - "/sys_auth/refresh/"
+db:
+  maxIdleConn: 10 # 最大空闲数
+  maxOpenConn: 10 # 最大连接数
+  showSQL: true # 是否打印SQL语句
+  logLevel: 1 # 日志级别：0_DEBUG 1_INFO 2_WARNING 3_ERR 4_OFF 5_UNKNOWN
+  backup:
+    enable: true # 是否开启备份
+    cron: "0 0 0 * * *" # 每天0点备份
+    path: "./backup" # 备份路径
+    keepDays: 7 # 保留天数
+    maxSize: 1024 # 最大大小(MB)
+    maxCount: 10 # 最大数量
+    compress: true # 是否压缩
+    encrypt: false # 是否加密
+    encryptKey: "" # 加密密钥
+    encryptMethod: "aes" # 加密方法
+    encryptLevel: "medium" # 加密级别
+  useDb: sqlite
+  sqlite:
+    db: "shh.db"
+  mysql:
+    addr: 127.0.0.1
+    port: 3306
+    db: shh_db?charset=utf8&parseTime=true&loc=Local
+    user: root
+    pwd: root
+  pgsql:
+    addr: 127.0.0.1
+    port: 5432
+    db: shh_db
+    user: Administrator
+    pwd: postgres
+  
+cache:
+  local:
+    expire: 5   # 默认缓存到期时间
+    purges: 10  # 默认缓存清除时间
+  redis:
+    addr: 192.168.0.67
+    port: 6379
+    pwd: redis_QN64Xy
+    db: 0
+file:
+  baseUrl: "http://localhost:3006/api"
+  local: "./uploads"
+  oss:
+    endpoint: 127.0.0.1:9001
+    accessKey: minioadmin
+    secretKey: minioadmin
+    bucketName: shh_oss

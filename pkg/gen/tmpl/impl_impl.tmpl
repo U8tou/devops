@@ -1,0 +1,49 @@
+package {{toAllLower .StructName}}
+
+import (
+	"context"
+	"system/model"
+	"pkg/db"
+	"sync"
+
+	"xorm.io/xorm"
+)
+
+/**
+Notes: {{.StructDoc}} IMPL
+Time:  {{.TimeStr}}
+*/
+
+var (
+	{{toLower .StructName}}Impl     *{{.StructName}}Impl
+	{{toLower .StructName}}ImplOnce sync.Once
+)
+
+// {{.StructName}}Impl 类
+type {{.StructName}}Impl struct {
+	engine *xorm.Engine
+}
+
+// Impl 实例化 | 依赖注入
+func Impl() I{{.StructName}}Impl {
+	{{toLower .StructName}}ImplOnce.Do(func() {
+		{{toLower .StructName}}Impl = &{{.StructName}}Impl{
+			engine: db.GetDb(),
+		}
+	})
+	return {{toLower .StructName}}Impl
+}
+
+// I{{.StructName}}Impl 接口
+type I{{.StructName}}Impl interface {
+	// List 分页
+	List(ctx context.Context, args *model.{{.StructName}}Dto) (int64, []model.{{.StructName}}Vo, error)
+	// Get 查询
+	Get(ctx context.Context, id string) (*model.{{.StructName}}Vo, error)
+	// Del 删除
+	Del(ctx context.Context, ids []int64) (int64, error)
+	// Add 新增
+	Add(ctx context.Context, args *model.{{.StructName}}Dto) (int64, error)
+	// Edit 编辑
+	Edit(ctx context.Context, args *model.{{.StructName}}Dto) (int64, error)
+}

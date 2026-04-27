@@ -1,0 +1,73 @@
+import request from '@/utils/http'
+
+// ==================== {{.StructDoc}}接口 ====================
+
+/**
+ * 获取{{.StructDoc}}列表（分页）（对应 /{{.ModulePath}}/list）
+ * @param params 搜索参数
+ * @returns {{.StructDoc}}列表
+ */
+export function fetchGet{{.EntityName}}List(params?: Api.{{.ModuleNamespace}}.{{.EntityName}}SearchParams) {
+  return request.get<Api.{{.ModuleNamespace}}.{{.EntityName}}ListResponse>({
+    url: '/api/{{.ModulePath}}/list',
+    params
+  })
+}
+
+/**
+ * 获取{{.StructDoc}}列表（全部）（对应 /{{.ModulePath}}/all）
+ * @returns {{.StructDoc}}列表
+ */
+export function fetchGet{{.EntityName}}All() {
+  return request.get<Api.{{.ModuleNamespace}}.{{.EntityName}}ListResponse>({
+    url: '/api/{{.ModulePath}}/all'
+  })
+}
+
+/**
+ * 获取{{.StructDoc}}详情（对应 /{{.ModulePath}}/get）
+ * @param id ID
+ * @returns {{.StructDoc}}详情
+ */
+export function fetchGet{{.EntityName}}Info(id: string) {
+  return request.get<Api.{{.ModuleNamespace}}.{{.EntityName}}Detail>({
+    url: '/api/{{.ModulePath}}/get',
+    params: { id }
+  })
+}
+
+/**
+ * 新增{{.StructDoc}}（对应 /{{.ModulePath}}/add）
+ * @param data 新增请求
+ * @returns 响应
+ */
+export function fetchAdd{{.EntityName}}(data: Api.{{.ModuleNamespace}}.{{.EntityName}}AddReq) {
+  return request.post<{ affect: string }>({
+    url: '/api/{{.ModulePath}}/add',
+    data
+  })
+}
+
+/**
+ * 编辑{{.StructDoc}}（对应 /{{.ModulePath}}/edit）
+ * @param data 编辑请求
+ * @returns 响应
+ */
+export function fetchEdit{{.EntityName}}(data: Api.{{.ModuleNamespace}}.{{.EntityName}}EditReq) {
+  return request.put<{ affect: string }>({
+    url: '/api/{{.ModulePath}}/edit',
+    data
+  })
+}
+
+/**
+ * 删除{{.StructDoc}}（对应 /{{.ModulePath}}/del）
+ * @param ids ID数组
+ * @returns 响应
+ */
+export function fetchDelete{{.EntityName}}(ids: string[]) {
+  return request.del<{ affect: string }>({
+    url: '/api/{{.ModulePath}}/del',
+    data: { ids }
+  })
+}
